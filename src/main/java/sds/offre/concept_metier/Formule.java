@@ -41,4 +41,8 @@ public class Formule {
     public Prix prixDeBase() {
         return prix;
     }
+
+    public Durée durée() {
+        return durée;
+    }
 }

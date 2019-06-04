@@ -4,6 +4,7 @@ import sds.offre.concept_metier.Formule;
 import sds.offre.concept_metier.FormuleRepository;
 import sds.offre.concept_metier.IdFormule;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 public class FormuleRepositoryEnMemoire implements FormuleRepository {
@@ -18,5 +19,10 @@ public class FormuleRepositoryEnMemoire implements FormuleRepository {
     @Override
     public void addOrReplace(Formule formule) {
         formuleMap.put(formule.Id(), formule);
+    }
+
+    @Override
+    public Collection<Formule> getToutesLesFormules() {
+        return formuleMap.values();
     }
 }

@@ -15,6 +15,7 @@ class RenouvellerAbonnementsAutomatiquementTest {
 
 
     private AbonnementRepository abonnementRepository = new AbonnementRepositoryEnMemoire();
+
     @Test
     void doit_renouveller_abonnements_quand_ils_sont_finis() {
         abonnementRepository.addOrReplaceAll(Lists.list(

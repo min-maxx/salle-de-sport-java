@@ -7,7 +7,7 @@ public class IdFormule {
         return new IdFormule(valeur);
     }
 
-    private String valeur;
+    private final String valeur;
 
     private IdFormule(String valeur) {
         this.valeur = valeur;
@@ -31,5 +31,9 @@ public class IdFormule {
         return "IdFormule{" +
                 "valeur='" + valeur + '\'' +
                 '}';
+    }
+
+    public String valeur() {
+        return valeur;
     }
 }

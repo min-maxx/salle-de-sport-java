@@ -7,6 +7,10 @@ public class Prix {
         return new Prix(valeur);
     }
 
+    public int valeur() {
+        return valeur;
+    }
+
     private int valeur;
 
     private Prix(int valeur) {
