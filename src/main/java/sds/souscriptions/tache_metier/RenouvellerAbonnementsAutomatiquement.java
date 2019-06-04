@@ -1,11 +1,12 @@
 package sds.souscriptions.tache_metier;
 
 import sds.souscriptions.concept_metier.Abonnement;
-import sds.souscriptions.concept_metier.AbonnementRenouvelle;
+import sds.souscriptions.concept_metier.AbonnementRenouvellé;
 import sds.souscriptions.concept_metier.AbonnementRepository;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -17,10 +18,14 @@ public class RenouvellerAbonnementsAutomatiquement {
         this.abonnementRepository = abonnementRepository;
     }
 
-    public Collection<AbonnementRenouvelle> renouvelle(LocalDate jourDeFin) {
+    public Collection<AbonnementRenouvellé> renouvelle(LocalDate jourDeFin) {
         Collection<Abonnement> abonnementsARenouveller = abonnementRepository.trouveAbonnementsAvec(jourDeFin);
 
-        Collection<AbonnementRenouvelle> abonnementsRenouvelles = abonnementsARenouveller.stream().map(Abonnement::renouvelle).collect(toList());
+        Collection<AbonnementRenouvellé> abonnementsRenouvelles = abonnementsARenouveller.stream()
+                .map(abonnement -> abonnement.renouvelle(jourDeFin))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(toList());
 
         abonnementRepository.addOrReplaceAll(abonnementsARenouveller);
 

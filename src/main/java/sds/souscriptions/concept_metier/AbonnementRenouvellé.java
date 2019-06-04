@@ -3,15 +3,15 @@ package sds.souscriptions.concept_metier;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class AbonnementRenouvelle {
-    public static AbonnementRenouvelle avec(IdAbonnement idAbonnement, LocalDate jourDeFin) {
-        return new AbonnementRenouvelle(idAbonnement, jourDeFin);
+public class AbonnementRenouvellé {
+    public static AbonnementRenouvellé avec(IdAbonnement idAbonnement, LocalDate jourDeFin) {
+        return new AbonnementRenouvellé(idAbonnement, jourDeFin);
     }
 
     private final IdAbonnement idAbonnement;
     private final LocalDate jourDeFin;
 
-    private AbonnementRenouvelle(IdAbonnement idAbonnement, LocalDate jourDeFin) {
+    private AbonnementRenouvellé(IdAbonnement idAbonnement, LocalDate jourDeFin) {
         this.idAbonnement = idAbonnement;
         this.jourDeFin = jourDeFin;
     }
@@ -20,7 +20,7 @@ public class AbonnementRenouvelle {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbonnementRenouvelle that = (AbonnementRenouvelle) o;
+        AbonnementRenouvellé that = (AbonnementRenouvellé) o;
         return Objects.equals(idAbonnement, that.idAbonnement) &&
                 Objects.equals(jourDeFin, that.jourDeFin);
     }
@@ -32,7 +32,7 @@ public class AbonnementRenouvelle {
 
     @Override
     public String toString() {
-        return "AbonnementRenouvelle{" +
+        return "AbonnementRenouvellé{" +
                 "idAbonnement=" + idAbonnement +
                 ", jourDeFin=" + jourDeFin +
                 '}';

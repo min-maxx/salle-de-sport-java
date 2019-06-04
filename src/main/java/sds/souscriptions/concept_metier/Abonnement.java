@@ -1,6 +1,7 @@
 package sds.souscriptions.concept_metier;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class Abonnement {
     private IdAbonnement id;
@@ -8,13 +9,15 @@ public class Abonnement {
     private Prix prix;
     private LocalDate jourDeSouscription;
     private LocalDate jourDeFin;
+    private Durée durée;
 
     public AbonnementSouscrit créé(IdAbonnement nouveauId, FormuleChoisie formuleChoisie, Prospect prospect, LocalDate jourDeSouscription) {
         this.id = nouveauId;
         this.idFormule = formuleChoisie.id;
         this.prix = formuleChoisie.prixAbonnementPour(prospect);
         this.jourDeSouscription = jourDeSouscription;
-        this.jourDeFin = jourDeSouscription.plusMonths(formuleChoisie.durée.nombreDeMois());
+        this.durée = formuleChoisie.durée;
+        this.jourDeFin = jourDeSouscription.plusMonths(durée.nombreDeMois());
         return AbonnementSouscrit.avec(id, idFormule, prix, jourDeSouscription, jourDeFin);
     }
 
@@ -22,8 +25,11 @@ public class Abonnement {
         return id;
     }
 
-    public AbonnementRenouvelle renouvelle() {
-        return null;
+    public Optional<AbonnementRenouvellé> renouvelle(LocalDate jourDeRenouvellement) {
+        if (jourDeFin.equals(jourDeRenouvellement)) {
+            return Optional.of(AbonnementRenouvellé.avec(id, jourDeFin.plusMonths(durée.nombreDeMois())));
+        }
+        return Optional.empty();
     }
 
     public boolean finisLe(LocalDate jourDeFin) {
