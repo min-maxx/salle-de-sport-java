@@ -1,4 +1,4 @@
-package sds.souscriptions.infra;
+package sds.offre.infra;
 
 import sds.offre.concept_metier.IdFormule;
 import sds.offre.concept_metier.IdFormuleGenerateur;

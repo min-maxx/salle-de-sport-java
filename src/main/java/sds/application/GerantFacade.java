@@ -1,11 +1,11 @@
 package sds.application;
 
 import sds.offre.concept_metier.*;
+import sds.offre.infra.FormuleRepositoryEnPostgreSQL;
+import sds.offre.infra.IdFormuleGenerateurDeUUID;
 import sds.offre.tache_metier.ChangerLePrixDeFormule;
 import sds.offre.tache_metier.ConsulterLesFormules;
 import sds.offre.tache_metier.CreerUneFormule;
-import sds.souscriptions.infra.FormuleRepositoryEnPostgreSQL;
-import sds.souscriptions.infra.IdFormuleGenerateurDeUUID;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -15,9 +15,14 @@ import static java.net.HttpURLConnection.*;
 
 public class GerantFacade {
 
+
+    private final FormuleRepository formuleRepository = new FormuleRepositoryEnPostgreSQL();
+    private final IdFormuleGenerateur idFormuleGenerateur = new IdFormuleGenerateurDeUUID();
+
     public Collection<FormuleDTO> GerantConsulteLesFormules() {
+        Collection<Formule> formules = new ConsulterLesFormules(formuleRepository).consulte();
         //TODO récupérer nombre de souscription par formule
-        Collection<Formule> formules = new ConsulterLesFormules(new FormuleRepositoryEnPostgreSQL()).consulte();
+        //TODO new AbonnementRepositoryEnPostgreSQL().trouveAbonnementsAvec(Collection<IdFormule>)
         return formules.stream().map(GerantFacade::toDto).collect(Collectors.toList());
     }
 
@@ -33,7 +38,7 @@ public class GerantFacade {
     public int GerantCrééUneFormule(int montant, int durée) {
         try {
             //TODO Authent. du Gérant
-            CreerUneFormule creerUneFormule = new CreerUneFormule(new IdFormuleGenerateurDeUUID(), new FormuleRepositoryEnPostgreSQL());
+            CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository);
             Optional<FormuleCreee> formuleCreee = creerUneFormule.crée(Prix.de(montant), durée == 0 ? Durée.AU_MOIS : Durée.A_L_ANNEE);
             return formuleCreee.isPresent() ?
                     HTTP_OK :
@@ -46,7 +51,7 @@ public class GerantFacade {
     public int GerantCrééUneFormule(String id, int montant) {
         try {
             //TODO Authent. du Gérant
-            ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(new FormuleRepositoryEnPostgreSQL());
+            ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository);
             Optional<PrixFormuleChangee> prixFormuleChangee = changerLePrixDeFormule.change(IdFormule.de(id), Prix.de(montant));
             return prixFormuleChangee.isPresent() ?
                     HTTP_OK :
