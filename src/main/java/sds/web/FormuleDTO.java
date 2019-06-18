@@ -1,4 +1,4 @@
-package sds.application;
+package sds.web;
 
 class FormuleDTO {
 

@@ -1,4 +1,4 @@
-package sds.application;
+package sds.web;
 
 import sds.offre.concept_metier.*;
 import sds.offre.infra.FormuleRepositoryEnPostgreSQL;
