@@ -20,7 +20,7 @@ public class GerantFacade {
     private final IdFormuleGenerateur idFormuleGenerateur = new IdFormuleGenerateurDeUUID();
     private ConsulterLesFormules consulterLesFormules = new ConsulterLesFormules(formuleRepository);
     CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository);
-    private ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository);
+    ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository);
 
     public Collection<FormuleDTO> GerantConsulteLesFormules() {
         //HERE Authent. du Gérant
@@ -59,13 +59,19 @@ public class GerantFacade {
 
     public int GerantChangeLePrixDuneFormule(String id, int montant) {
         try {
-            //HERE Authent. du Gérant
-            Optional<PrixFormuleChangee> prixFormuleChangee = changerLePrixDeFormule.change(IdFormule.de(id), Prix.de(montant));
-            return prixFormuleChangee.isPresent() ?
-                    HTTP_OK :
-                    HTTP_BAD_REQUEST;
+            IdFormule idFormule = IdFormule.de(id);
+            Prix prix = Prix.de(montant);
+            try {
+                //HERE Authent. du Gérant
+                Optional<PrixFormuleChangee> prixFormuleChangee = changerLePrixDeFormule.change(idFormule, prix);
+                return prixFormuleChangee.isPresent() ?
+                        HTTP_OK :
+                        HTTP_INTERNAL_ERROR;
+            } catch (Exception e) {
+                return HTTP_INTERNAL_ERROR;
+            }
         } catch (Exception e) {
-            return HTTP_INTERNAL_ERROR;
+            return HTTP_BAD_REQUEST;
         }
     }
 }
