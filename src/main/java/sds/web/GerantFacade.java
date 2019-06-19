@@ -18,16 +18,20 @@ public class GerantFacade {
 
     private final FormuleRepository formuleRepository = new FormuleRepositoryEnPostgreSQL();
     private final IdFormuleGenerateur idFormuleGenerateur = new IdFormuleGenerateurDeUUID();
+    private ConsulterLesFormules consulterLesFormules = new ConsulterLesFormules(formuleRepository);
+    CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository);
+    private ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository);
 
     public Collection<FormuleDTO> GerantConsulteLesFormules() {
-        Collection<Formule> formules = new ConsulterLesFormules(formuleRepository).consulte();
+        //HERE Authent. du Gérant
+        Collection<Formule> formules = consulterLesFormules.consulte();
         //TODO récupérer nombre de souscription par formule
         //TODO new AbonnementRepositoryEnPostgreSQL().trouveAbonnementsAvec(Collection<IdFormule>)
         return formules.stream().map(GerantFacade::toDto).collect(Collectors.toList());
     }
 
     private static FormuleDTO toDto(Formule formule) {
-        //FIXME obliger de créer de getter :'( -> solution CQRS
+        //NOTE: obliger de créer de getter :'(
         FormuleDTO dto = new FormuleDTO();
         dto.id = formule.Id().valeur();
         dto.durée = formule.durée().toString();
@@ -35,23 +39,27 @@ public class GerantFacade {
         return dto;
     }
 
-    public int GerantCrééUneFormule(int montant, int durée) {
+    public int GerantCrééUneFormule(int montant, int indexDurée) {
         try {
-            //TODO Authent. du Gérant
-            CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository);
-            Optional<FormuleCreee> formuleCreee = creerUneFormule.crée(Prix.de(montant), durée == 0 ? Durée.AU_MOIS : Durée.A_L_ANNEE);
-            return formuleCreee.isPresent() ?
-                    HTTP_OK :
-                    HTTP_BAD_REQUEST;
+            Prix prix = Prix.de(montant);
+            Durée durée = Durée.values()[indexDurée];
+            try {
+                //HERE Authent. du Gérant
+                Optional<FormuleCreee> formuleCreee = creerUneFormule.crée(prix, durée);
+                return formuleCreee.isPresent() ?
+                        HTTP_OK :
+                        HTTP_INTERNAL_ERROR;
+            } catch (Exception e) {
+                return HTTP_INTERNAL_ERROR;
+            }
         } catch (Exception e) {
-            return HTTP_INTERNAL_ERROR;
+            return HTTP_BAD_REQUEST;
         }
     }
 
-    public int GerantCrééUneFormule(String id, int montant) {
+    public int GerantChangeLePrixDuneFormule(String id, int montant) {
         try {
-            //TODO Authent. du Gérant
-            ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository);
+            //HERE Authent. du Gérant
             Optional<PrixFormuleChangee> prixFormuleChangee = changerLePrixDeFormule.change(IdFormule.de(id), Prix.de(montant));
             return prixFormuleChangee.isPresent() ?
                     HTTP_OK :
