@@ -29,7 +29,7 @@ public class AbonnementRepositoryEnMemoire implements AbonnementRepository {
     }
 
     @Override
-    public Collection<Abonnement> trouveAbonnementsAvec(LocalDate jourDeFin) {
+    public Collection<Abonnement> trouveAbonnementsFinissant(LocalDate jourDeFin) {
         return abonnementMap.values().stream()
                 .filter(abonnement -> abonnement.finisLe(jourDeFin))
                 .collect(Collectors.toList());

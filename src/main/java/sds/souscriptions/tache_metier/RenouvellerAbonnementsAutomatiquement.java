@@ -19,7 +19,7 @@ public class RenouvellerAbonnementsAutomatiquement {
     }
 
     public Collection<AbonnementRenouvellé> renouvelle(LocalDate jourDeFin) {
-        Collection<Abonnement> abonnementsARenouveller = abonnementRepository.trouveAbonnementsAvec(jourDeFin);
+        Collection<Abonnement> abonnementsARenouveller = abonnementRepository.trouveAbonnementsFinissant(jourDeFin);
 
         Collection<AbonnementRenouvellé> abonnementsRenouvelles = abonnementsARenouveller.stream()
                 .map(abonnement -> abonnement.renouvelle(jourDeFin))

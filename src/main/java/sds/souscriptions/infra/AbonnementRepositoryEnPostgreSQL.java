@@ -29,7 +29,7 @@ public class AbonnementRepositoryEnPostgreSQL implements AbonnementRepository {
     }
 
     @Override
-    public Collection<Abonnement> trouveAbonnementsAvec(LocalDate jourDeFin) {
+    public Collection<Abonnement> trouveAbonnementsFinissant(LocalDate jourDeFin) {
         //SELECT * FROM ...
         throw new UnsupportedOperationException("Pas encore implémenté");
     }
