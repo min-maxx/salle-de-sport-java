@@ -14,6 +14,8 @@ public class Prix {
     private int valeur;
 
     private Prix(int valeur) {
+        if (valeur < 0) throw new IllegalArgumentException("La valleur doit être positive.");
+
         this.valeur = valeur;
     }
 
