@@ -13,6 +13,10 @@ public class IdFormule {
         this.valeur = valeur;
     }
 
+    public String valeur() {
+        return valeur;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
