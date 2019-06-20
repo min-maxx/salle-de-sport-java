@@ -1,27 +1,23 @@
-package sds.souscriptions.concept_metier;
+package sds.notification_email.concept_metier;
 
 import java.util.Objects;
 
-public class IdAbonnement {
+public class IdAbonné {
     private String valeur;
 
-    public IdAbonnement(String valeur) {
+    public IdAbonné(String valeur) {
         this.valeur = valeur;
     }
 
-    public static IdAbonnement de(String valeur) {
-        return new IdAbonnement(valeur);
-    }
-
-    public String valeur() {
-        return valeur;
+    public static IdAbonné de(String valeur) {
+        return new IdAbonné(valeur);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        IdAbonnement that = (IdAbonnement) o;
+        IdAbonné that = (IdAbonné) o;
         return Objects.equals(valeur, that.valeur);
     }
 

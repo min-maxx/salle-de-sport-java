@@ -20,13 +20,13 @@ class MinuteurFacadeTest {
     void doit_lancer_minuteur() throws ParseException {
         MinuteurFacade minuteurFacade = new MinuteurFacade();
         minuteurFacade.timer = new TestTimer();
-        minuteurFacade.renouvellerAbonnementsAutomatiquement = mock(RenouvellerAbonnementsAutomatiquement.class);
-        when(minuteurFacade.renouvellerAbonnementsAutomatiquement.renouvelle(any(LocalDate.class)))
+        minuteurFacade.renouvellerAbonnements = mock(RenouvellerAbonnementsAutomatiquement.class);
+        when(minuteurFacade.renouvellerAbonnements.renouvelle(any(LocalDate.class)))
                 .thenReturn(Collections.emptyList());
 
         minuteurFacade.MinuteurRenouvelleAbonnementsAutomatiquementChaqueMois();
 
-        verify(minuteurFacade.renouvellerAbonnementsAutomatiquement).renouvelle(any(LocalDate.class));
+        verify(minuteurFacade.renouvellerAbonnements).renouvelle(any(LocalDate.class));
         assertThat(((TestTimer) minuteurFacade.timer).firstTime).hasDayOfMonth(1).isInTheFuture();
         assertThat(((TestTimer) minuteurFacade.timer).period).isEqualTo(2629800000l);
 

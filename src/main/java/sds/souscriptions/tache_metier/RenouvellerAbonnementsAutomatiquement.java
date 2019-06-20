@@ -19,9 +19,9 @@ public class RenouvellerAbonnementsAutomatiquement {
     }
 
     public Collection<AbonnementRenouvellé> renouvelle(LocalDate jourDeFin) {
-        Collection<Abonnement> abonnementsARenouveller = abonnementRepository.trouveAbonnementsFinissant(jourDeFin);
+        Collection<Abonnement> abonnementsARenouveller = abonnementRepository.trouveAbonnementsFinissantLe(jourDeFin);
 
-        Collection<AbonnementRenouvellé> abonnementsRenouvelles = abonnementsARenouveller.stream()
+        Collection<AbonnementRenouvellé> abonnementRenouvelés = abonnementsARenouveller.stream()
                 .map(abonnement -> abonnement.renouvelle(jourDeFin))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
@@ -29,6 +29,6 @@ public class RenouvellerAbonnementsAutomatiquement {
 
         abonnementRepository.addOrReplaceAll(abonnementsARenouveller);
 
-        return abonnementsRenouvelles;
+        return abonnementRenouvelés;
     }
 }

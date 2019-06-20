@@ -5,16 +5,7 @@ import sds.offre.infra.FormuleRepositoryEnPostgreSQL;
 import sds.offre.tache_metier.ConsulterUneFormule;
 import sds.souscriptions.concept_metier.*;
 
-import java.util.Collection;
-import java.util.HashMap;
-
 public class OffreFormulesExternes implements OffreFormules {
-    private HashMap<IdFormule, FormuleChoisie> formuleMap = new HashMap<>();
-
-    public OffreFormulesExternes(Collection<FormuleChoisie> formuleChoisies) {
-        formuleChoisies.forEach(formule -> formuleMap.put(formule.id, formule));
-    }
-
 
     @Override
     public FormuleChoisie trouveFormuleChoisie(IdFormule idFormule) {

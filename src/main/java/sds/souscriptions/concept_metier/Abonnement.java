@@ -32,7 +32,11 @@ public class Abonnement {
         return Optional.empty();
     }
 
-    public boolean finisLe(LocalDate jourDeFin) {
-        return this.jourDeFin.equals(jourDeFin);
+    public LocalDate jourDeFin() {
+        return jourDeFin;
+    }
+
+    public LocalDate jourDeSouscription() {
+        return jourDeSouscription;
     }
 }

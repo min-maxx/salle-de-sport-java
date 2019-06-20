@@ -11,5 +11,7 @@ public interface AbonnementRepository {
 
     void addOrReplaceAll(Collection<Abonnement> abonnements);
 
-    Collection<Abonnement> trouveAbonnementsFinissant(LocalDate jourDeFin);
+    Collection<Abonnement> trouveAbonnementsFinissantLe(LocalDate jourDeFin);
+
+    Collection<Abonnement> trouveAbonnementsEnCoursSouscritsEntre(LocalDate début, LocalDate fin);
 }
