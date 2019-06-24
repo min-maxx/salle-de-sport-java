@@ -10,7 +10,7 @@ public class EnvoyeurDeEmailMailChimp implements EnvoyeurDeEmail {
     }
 
     @Override
-    public EmailRecapitulatifEnvoyé envoieRecapitulatif(Abonné abonné, Abonnement abonnement) {
+    public EmailRecapitulatifEnvoyé envoieRecapitulatif(Abonné abonné, AbonnementDetail abonnementDetail) {
         throw new UnsupportedOperationException("Pas encore implémenté");
     }
 }

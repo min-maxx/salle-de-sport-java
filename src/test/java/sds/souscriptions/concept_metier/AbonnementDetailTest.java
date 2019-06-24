@@ -6,11 +6,11 @@ import java.time.LocalDate;
 import java.time.Month;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static sds.souscriptions.concept_metier.AbonnementTest.Constant.*;
+import static sds.souscriptions.concept_metier.AbonnementDetailTest.Constant.*;
 import static sds.souscriptions.concept_metier.Durée.ANNUELLE;
 import static sds.souscriptions.concept_metier.Durée.MENSUELLE;
 
-class AbonnementTest {
+class AbonnementDetailTest {
 
 
     @Test

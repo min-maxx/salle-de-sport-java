@@ -17,7 +17,7 @@ public class EnvoyeurDeEmailEnMemoire implements EnvoyeurDeEmail {
     }
 
     @Override
-    public EmailRecapitulatifEnvoyé envoieRecapitulatif(Abonné abonné, Abonnement abonnement) {
+    public EmailRecapitulatifEnvoyé envoieRecapitulatif(Abonné abonné, AbonnementDetail abonnementDetail) {
         return new EmailRecapitulatifEnvoyé();
     }
 }

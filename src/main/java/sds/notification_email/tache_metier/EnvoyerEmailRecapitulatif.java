@@ -1,6 +1,6 @@
 package sds.notification_email.tache_metier;
 
-import sds.notification_email.concept_metier.Abonnement;
+import sds.notification_email.concept_metier.AbonnementDetail;
 import sds.notification_email.concept_metier.Abonné;
 import sds.notification_email.concept_metier.EmailRecapitulatifEnvoyé;
 import sds.notification_email.concept_metier.EnvoyeurDeEmail;
@@ -19,7 +19,7 @@ public class EnvoyerEmailRecapitulatif {
         this.envoyeurDeEmailMailChimp = envoyeurDeEmailMailChimp;
     }
 
-    public EmailRecapitulatifEnvoyé envoie(Abonné abonné, Abonnement abonnement) {
-        return envoyeurDeEmailMailChimp.envoieRecapitulatif(abonné, abonnement);
+    public EmailRecapitulatifEnvoyé envoie(Abonné abonné, AbonnementDetail abonnementDetail) {
+        return envoyeurDeEmailMailChimp.envoieRecapitulatif(abonné, abonnementDetail);
     }
 }

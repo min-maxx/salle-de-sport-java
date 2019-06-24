@@ -41,7 +41,7 @@ public class VendeurFacade {
             try {
                 //HERE Authent. du Vendeur
                 AbonnementSouscrit abonnementSouscrit = abonnerProspectAFormule.abonne(Prospect.avec(etudiant, email), idFormule);
-                envoyerEmailRecapitulatif.envoie(enAbonné(abonnementSouscrit), enAbonnement(abonnementSouscrit));
+                envoyerEmailRecapitulatif.envoie(enAbonné(abonnementSouscrit), enAbonnementDetail(abonnementSouscrit));
                 return HTTP_OK;
             } catch (Exception e) {
                 return HTTP_INTERNAL_ERROR;
@@ -51,8 +51,8 @@ public class VendeurFacade {
         }
     }
 
-    private Abonnement enAbonnement(AbonnementSouscrit abonnementSouscrit) {
-        return new Abonnement(abonnementSouscrit.jourDeFin);
+    private AbonnementDetail enAbonnementDetail(AbonnementSouscrit abonnementSouscrit) {
+        return new AbonnementDetail(abonnementSouscrit.jourDeFin);
     }
 
     private Abonné enAbonné(AbonnementSouscrit abonnementSouscrit) {
