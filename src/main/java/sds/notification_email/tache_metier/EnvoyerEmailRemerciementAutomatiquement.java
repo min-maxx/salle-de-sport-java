@@ -10,6 +10,11 @@ import java.util.Collection;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Pour voir un exemple de tests, se rendre à la classe
+ *
+ * @see sds.souscriptions.tache_metier.RenouvellerAbonnementsAutomatiquement
+ */
 public class EnvoyerEmailRemerciementAutomatiquement {
     private final Abonnés abonnés;
     private final EnvoyeurDeEmail envoyeurDeEmail;
@@ -25,4 +30,5 @@ public class EnvoyerEmailRemerciementAutomatiquement {
                 .map(envoyeurDeEmail::envoieRemerciement)
                 .collect(toList());
     }
+
 }

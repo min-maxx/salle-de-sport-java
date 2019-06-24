@@ -1,8 +1,6 @@
 package sds.notification_email.tache_metier;
 
-import sds.notification_email.concept_metier.Abonné;
-import sds.notification_email.concept_metier.EmailRemerciementEnvoyé;
-import sds.notification_email.concept_metier.EnvoyeurDeEmail;
+import sds.notification_email.concept_metier.*;
 
 import java.time.LocalDate;
 
@@ -16,5 +14,10 @@ public class EnvoyeurDeEmailEnMemoire implements EnvoyeurDeEmail {
     @Override
     public EmailRemerciementEnvoyé envoieRemerciement(Abonné abonné) {
         return EmailRemerciementEnvoyé.avec(abonné.idAbonnement(), dateEnvoi, abonné.email());
+    }
+
+    @Override
+    public EmailRecapitulatifEnvoyé envoieRecapitulatif(Abonné abonné, Abonnement abonnement) {
+        return new EmailRecapitulatifEnvoyé();
     }
 }

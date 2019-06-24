@@ -16,9 +16,12 @@ import static java.net.HttpURLConnection.*;
 public class GerantFacade {
 
 
+    // dépendances indirectes
     private final FormuleRepository formuleRepository = new FormuleRepositoryEnPostgreSQL();
     private final IdFormuleGenerateur idFormuleGenerateur = new IdFormuleGenerateurDeUUID();
     private ConsulterLesFormules consulterLesFormules = new ConsulterLesFormules(formuleRepository);
+
+    // dépendances directes à mock dans les tests
     CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository);
     ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository);
 

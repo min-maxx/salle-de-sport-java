@@ -5,22 +5,24 @@ import java.util.Objects;
 
 public class AbonnementSouscrit {
 
-    final IdAbonnement id;
-    final IdFormule idFormule;
-    final Prix prix;
-    final LocalDate jourDeSouscription;
-    final LocalDate jourDeFin;
+    public final IdAbonnement id;
+    public final IdFormule idFormule;
+    public final Prix prix;
+    public final LocalDate jourDeSouscription;
+    public final LocalDate jourDeFin;
+    public final String email;
 
-    private AbonnementSouscrit(IdAbonnement id, IdFormule idFormule, Prix prix, LocalDate jourDeSouscription, LocalDate jourDeFin) {
+    private AbonnementSouscrit(IdAbonnement id, IdFormule idFormule, Prix prix, LocalDate jourDeSouscription, LocalDate jourDeFin, String email) {
         this.id = id;
         this.idFormule = idFormule;
         this.prix = prix;
         this.jourDeSouscription = jourDeSouscription;
         this.jourDeFin = jourDeFin;
+        this.email = email;
     }
 
-    public static AbonnementSouscrit avec(IdAbonnement id, IdFormule idFormule, Prix prix, LocalDate jourDeSouscription, LocalDate jourDeFin) {
-        return new AbonnementSouscrit(id, idFormule, prix, jourDeSouscription, jourDeFin);
+    public static AbonnementSouscrit avec(IdAbonnement id, IdFormule idFormule, Prix prix, LocalDate jourDeSouscription, LocalDate jourDeFin, String email) {
+        return new AbonnementSouscrit(id, idFormule, prix, jourDeSouscription, jourDeFin, email);
     }
 
     @Override

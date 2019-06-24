@@ -1,13 +1,16 @@
 package sds.notification_email.infra;
 
-import sds.notification_email.concept_metier.Abonné;
-import sds.notification_email.concept_metier.EmailRemerciementEnvoyé;
-import sds.notification_email.concept_metier.EnvoyeurDeEmail;
+import sds.notification_email.concept_metier.*;
 
 public class EnvoyeurDeEmailMailChimp implements EnvoyeurDeEmail {
 
     @Override
     public EmailRemerciementEnvoyé envoieRemerciement(Abonné abonné) {
+        throw new UnsupportedOperationException("Pas encore implémenté");
+    }
+
+    @Override
+    public EmailRecapitulatifEnvoyé envoieRecapitulatif(Abonné abonné, Abonnement abonnement) {
         throw new UnsupportedOperationException("Pas encore implémenté");
     }
 }

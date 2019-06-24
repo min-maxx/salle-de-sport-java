@@ -19,7 +19,7 @@ public class AbonnésEnMémoire implements Abonnés {
     @Override
     public Collection<Abonné> trouveAbonnésAyantSoucritLe(YearMonth moisDeSouscription) {
         return abonnés.stream()
-                .filter(abonné -> moisDeSouscription.equals(YearMonth.from(abonné.dateDeSouscription())))
+                .filter(abonné -> moisDeSouscription.equals(YearMonth.from(abonné.dateInscription())))
                 .collect(toList());
     }
 
