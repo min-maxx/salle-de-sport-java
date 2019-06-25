@@ -50,8 +50,8 @@ class FormuleChoisieTest {
         static final Durée MENSUEL = Durée.MENSUELLE;
         static final Durée ANNUEL = Durée.ANNUELLE;
         static final String EMAIL = "mail@com";
-        static final Prospect PROSPECT = Prospect.avec(Etudiant.NON, EMAIL);
-        static final Prospect PROSPECT_ETUDIANT = Prospect.avec(Etudiant.OUI, EMAIL);
+        static final Prospect PROSPECT = Prospect.avec(Etudiant.NON);
+        static final Prospect PROSPECT_ETUDIANT = Prospect.avec(Etudiant.OUI);
 
         static FormuleChoisie Formule(Durée annuel, double valeur) {
             return FormuleChoisie.avec(ID, Prix.de(valeur), annuel);

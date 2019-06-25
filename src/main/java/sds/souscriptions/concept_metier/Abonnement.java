@@ -18,7 +18,7 @@ public class Abonnement {
         this.jourDeSouscription = jourDeSouscription;
         this.durée = formuleChoisie.durée;
         this.jourDeFin = jourDeSouscription.plusMonths(durée.nombreDeMois());
-        return AbonnementSouscrit.avec(id, idFormule, prix, jourDeSouscription, jourDeFin, prospect.email);
+        return AbonnementSouscrit.avec(id, idFormule, prix, jourDeSouscription, jourDeFin);
     }
 
     public IdAbonnement Id() {

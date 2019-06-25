@@ -18,7 +18,7 @@ class AbonnementDetailTest {
         assertThat(
                 new Abonnement().créé(ID_ABO, FormuleChoisie.avec(ID_FORMULE, PRIX, MENSUELLE), PROSPECT, LE_23_AVRIL)
         ).isEqualTo(
-                AbonnementSouscrit.avec(ID_ABO, ID_FORMULE, PRIX, LE_23_AVRIL, LE_23_MAI, EMAIL)
+                AbonnementSouscrit.avec(ID_ABO, ID_FORMULE, PRIX, LE_23_AVRIL, LE_23_MAI)
         );
     }
 
@@ -27,7 +27,7 @@ class AbonnementDetailTest {
         assertThat(
                 new Abonnement().créé(ID_ABO, FormuleChoisie.avec(ID_FORMULE, PRIX, ANNUELLE), PROSPECT, AVRIL_2018)
         ).isEqualTo(
-                AbonnementSouscrit.avec(ID_ABO, ID_FORMULE, PRIX_REDUIT, AVRIL_2018, AVRIL_2019, EMAIL)
+                AbonnementSouscrit.avec(ID_ABO, ID_FORMULE, PRIX_REDUIT, AVRIL_2018, AVRIL_2019)
         );
     }
 
@@ -82,7 +82,7 @@ class AbonnementDetailTest {
         static final Prix PRIX_REDUIT = Prix.de(25.6);
 
         static final String EMAIL = "any@mail.com";
-        static final Prospect PROSPECT = Prospect.avec(Etudiant.NON, EMAIL);
+        static final Prospect PROSPECT = Prospect.avec(Etudiant.NON);
 
         static FormuleChoisie Formule(Durée durée) {
             return FormuleChoisie.avec(ID_FORMULE, PRIX, durée);

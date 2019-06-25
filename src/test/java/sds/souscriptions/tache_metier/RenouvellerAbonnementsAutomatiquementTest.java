@@ -36,7 +36,7 @@ class RenouvellerAbonnementsAutomatiquementTest {
 
     private Abonnement Abo(IdAbonnement id, Durée durée, LocalDate jourDeSouscription) {
         Abonnement abonnement = new Abonnement();
-        abonnement.créé(id, FormuleChoisie.avec(IdFormule.de("2"), Prix.de(10.99), durée), Prospect.avec(Etudiant.NON, EMAIL), jourDeSouscription);
+        abonnement.créé(id, FormuleChoisie.avec(IdFormule.de("2"), Prix.de(10.99), durée), Prospect.avec(Etudiant.NON), jourDeSouscription);
         return abonnement;
     }
 

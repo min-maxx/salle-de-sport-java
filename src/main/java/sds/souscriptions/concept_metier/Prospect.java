@@ -4,16 +4,14 @@ import java.util.Objects;
 
 public class Prospect {
 
-    public static Prospect avec(Etudiant etudiant, String email) {
-        return new Prospect(etudiant, email);
+    public static Prospect avec(Etudiant etudiant) {
+        return new Prospect(etudiant);
     }
 
-    String email;
     Etudiant etudiant;
 
-    private Prospect(Etudiant etudiant, String email) {
+    private Prospect(Etudiant etudiant) {
         this.etudiant = etudiant;
-        this.email = email;
     }
 
 
@@ -22,20 +20,18 @@ public class Prospect {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Prospect prospect = (Prospect) o;
-        return Objects.equals(email, prospect.email) &&
-                etudiant == prospect.etudiant;
+        return etudiant == prospect.etudiant;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, etudiant);
+        return Objects.hash(etudiant);
     }
 
     @Override
     public String toString() {
         return "Prospect{" +
-                "email='" + email + '\'' +
-                ", etudiant=" + etudiant +
+                "etudiant=" + etudiant +
                 '}';
     }
 }

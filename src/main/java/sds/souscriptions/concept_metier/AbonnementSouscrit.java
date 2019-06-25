@@ -10,19 +10,17 @@ public class AbonnementSouscrit {
     public final Prix prix;
     public final LocalDate jourDeSouscription;
     public final LocalDate jourDeFin;
-    public final String email;
 
-    private AbonnementSouscrit(IdAbonnement id, IdFormule idFormule, Prix prix, LocalDate jourDeSouscription, LocalDate jourDeFin, String email) {
+    private AbonnementSouscrit(IdAbonnement id, IdFormule idFormule, Prix prix, LocalDate jourDeSouscription, LocalDate jourDeFin) {
         this.id = id;
         this.idFormule = idFormule;
         this.prix = prix;
         this.jourDeSouscription = jourDeSouscription;
         this.jourDeFin = jourDeFin;
-        this.email = email;
     }
 
-    public static AbonnementSouscrit avec(IdAbonnement id, IdFormule idFormule, Prix prix, LocalDate jourDeSouscription, LocalDate jourDeFin, String email) {
-        return new AbonnementSouscrit(id, idFormule, prix, jourDeSouscription, jourDeFin, email);
+    public static AbonnementSouscrit avec(IdAbonnement id, IdFormule idFormule, Prix prix, LocalDate jourDeSouscription, LocalDate jourDeFin) {
+        return new AbonnementSouscrit(id, idFormule, prix, jourDeSouscription, jourDeFin);
     }
 
     @Override

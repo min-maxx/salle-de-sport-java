@@ -28,8 +28,8 @@ public class VendeurFacade {
     private final ConsulterUneFormule consulterUneFormule = new ConsulterUneFormule(formuleRepository);
     private final OffreFormulesExternes offreFormules = new OffreFormulesExternes(consulterUneFormule);
     private final AbonnementRepositoryEnPostgreSQL abonnementRepository = new AbonnementRepositoryEnPostgreSQL();
-
     private final EnvoyeurDeEmail envoyeurDeEmailMailChimp = new EnvoyeurDeEmailMailChimp();
+
     // dépendances directes à mock dans les tests
     EnvoyerEmailRecapitulatif envoyerEmailRecapitulatif = new EnvoyerEmailRecapitulatif(envoyeurDeEmailMailChimp);
     AbonnerProspectAFormule abonnerProspectAFormule = new AbonnerProspectAFormule(new IdAbonnementGenerateurDeUUID(), offreFormules, new DateGenerateurEnJava(), abonnementRepository);
@@ -40,8 +40,12 @@ public class VendeurFacade {
             IdFormule idFormule = IdFormule.de(id);
             try {
                 //HERE Authent. du Vendeur
-                AbonnementSouscrit abonnementSouscrit = abonnerProspectAFormule.abonne(Prospect.avec(etudiant, email), idFormule);
-                envoyerEmailRecapitulatif.envoie(enAbonné(abonnementSouscrit), enAbonnementDetail(abonnementSouscrit));
+                AbonnementSouscrit abonnementSouscrit = abonnerProspectAFormule.abonne(Prospect.avec(etudiant), idFormule);
+                try {
+                    envoyerEmailRecapitulatif.envoie(enAbonné(abonnementSouscrit, email), enAbonnementDetail(abonnementSouscrit));
+                } catch (Exception e) {
+                    return HTTP_OK;
+                }
                 return HTTP_OK;
             } catch (Exception e) {
                 return HTTP_INTERNAL_ERROR;
@@ -52,10 +56,10 @@ public class VendeurFacade {
     }
 
     private AbonnementDetail enAbonnementDetail(AbonnementSouscrit abonnementSouscrit) {
-        return new AbonnementDetail(abonnementSouscrit.jourDeFin);
+        return AbonnementDetail.avec(abonnementSouscrit.jourDeFin);
     }
 
-    private Abonné enAbonné(AbonnementSouscrit abonnementSouscrit) {
-        return Abonné.avec(IdAbonné.de(abonnementSouscrit.id.valeur()), AdresseEmail.de(abonnementSouscrit.email), abonnementSouscrit.jourDeSouscription);
+    private Abonné enAbonné(AbonnementSouscrit abonnementSouscrit, String email) {
+        return Abonné.avec(IdAbonné.de(abonnementSouscrit.id.valeur()), AdresseEmail.de(email), abonnementSouscrit.jourDeSouscription);
     }
 }
