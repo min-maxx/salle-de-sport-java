@@ -15,6 +15,8 @@ import sds.souscriptions.infra.IdAbonnementGenerateurDeUUID;
 import sds.souscriptions.infra.OffreFormulesExternes;
 import sds.souscriptions.tache_metier.AbonnerProspectAFormule;
 
+import javax.ws.rs.POST;
+
 import static java.net.HttpURLConnection.*;
 
 /**
@@ -34,6 +36,7 @@ public class VendeurFacade {
     EnvoyerEmailRecapitulatif envoyerEmailRecapitulatif = new EnvoyerEmailRecapitulatif(envoyeurDeEmailMailChimp);
     AbonnerProspectAFormule abonnerProspectAFormule = new AbonnerProspectAFormule(new IdAbonnementGenerateurDeUUID(), offreFormules, new DateGenerateurEnJava(), abonnementRepository);
 
+    @POST
     public int VendeurAbonneProspectAFormule(int indexEtudiant, String id, String email) {
         try {
             Etudiant etudiant = Etudiant.values()[indexEtudiant];

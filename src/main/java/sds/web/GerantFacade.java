@@ -7,6 +7,8 @@ import sds.offre.tache_metier.ChangerLePrixDeFormule;
 import sds.offre.tache_metier.ConsulterLesFormules;
 import sds.offre.tache_metier.CreerUneFormule;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,11 +27,11 @@ public class GerantFacade {
     CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository);
     ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository);
 
+    @GET
     public Collection<FormuleDTO> GerantConsulteLesFormules() {
         //HERE Authent. du Gérant
         Collection<Formule> formules = consulterLesFormules.consulte();
-        //TODO récupérer nombre de souscription par formule
-        //TODO new AbonnementRepositoryEnPostgreSQL().trouveAbonnementsAvec(Collection<IdFormule>)
+        //TODO récupérer nombre de souscription par formule : new AbonnementRepositoryEnPostgreSQL().trouveAbonnementsAvec(Collection<IdFormule>)
         return formules.stream().map(GerantFacade::toDto).collect(Collectors.toList());
     }
 
@@ -42,6 +44,7 @@ public class GerantFacade {
         return dto;
     }
 
+    @POST
     public int GerantCrééUneFormule(int montant, int indexDurée) {
         try {
             Prix prix = Prix.de(montant);
@@ -60,6 +63,7 @@ public class GerantFacade {
         }
     }
 
+    @POST
     public int GerantChangeLePrixDuneFormule(String id, int montant) {
         try {
             IdFormule idFormule = IdFormule.de(id);
