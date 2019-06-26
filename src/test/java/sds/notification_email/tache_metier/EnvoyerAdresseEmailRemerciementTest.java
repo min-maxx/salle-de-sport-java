@@ -1,7 +1,8 @@
 package sds.notification_email.tache_metier;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
+import sds.notification_email.AbonnéRepositoryEnMémoire;
+import sds.notification_email.EnvoyeurDeEmailEnMemoire;
 import sds.notification_email.concept_metier.*;
 
 import java.time.LocalDate;
@@ -15,17 +16,16 @@ class EnvoyerAdresseEmailRemerciementTest {
 
     @Test
     void doit_envoyer_email_aux_abonnés_depuis_3_ans() {
-        Abonnés abonnés = new AbonnésEnMémoire(Lists.list(
-                Abonné.avec(IdAbonné.de("1"), AdresseEmail.de("s@1.com"), JUILLET_2018),
-                Abonné.avec(IdAbonné.de("2"), AdresseEmail.de("s@2.com"), AOUT_2018),
-                Abonné.avec(IdAbonné.de("3"), AdresseEmail.de("s@3.com"), SEPTEMBRE_2018),
-                Abonné.avec(IdAbonné.de("4"), AdresseEmail.de("s@4.com"), AOUT_2019)
-        ));
+        AbonnéRepository abonnéRepository = new AbonnéRepositoryEnMémoire();
+        abonnéRepository.addOrReplace(Abonné.avec(IdAbonné.de("1"), AdresseEmail.de("s@1.com"), JUILLET_2018));
+        abonnéRepository.addOrReplace(Abonné.avec(IdAbonné.de("2"), AdresseEmail.de("s@2.com"), AOUT_2018));
+        abonnéRepository.addOrReplace(Abonné.avec(IdAbonné.de("3"), AdresseEmail.de("s@3.com"), SEPTEMBRE_2018));
+        abonnéRepository.addOrReplace(Abonné.avec(IdAbonné.de("4"), AdresseEmail.de("s@4.com"), AOUT_2019));
 
         EnvoyeurDeEmail envoyeurDeEmail = new EnvoyeurDeEmailEnMemoire(DATE_ENVOI);
 
         assertThat(
-                new EnvoyerEmailRemerciementAutomatiquement(abonnés, envoyeurDeEmail).envoie(AOUT_2021)
+                new EnvoyerEmailRemerciementAutomatiquement(abonnéRepository, envoyeurDeEmail).envoie(AOUT_2021)
         ).contains(
                 EmailRemerciementEnvoyé.avec(IdAbonné.de("2"), DATE_ENVOI, AdresseEmail.de("s@2.com"))
         ).hasSize(1);

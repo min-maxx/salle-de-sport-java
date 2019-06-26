@@ -14,7 +14,7 @@ public class Abonné {
         this.adresseEmail = adresseEmail;
     }
 
-    public IdAbonné idAbonnement() {
+    public IdAbonné id() {
         return idAbonné;
     }
 

@@ -1,4 +1,4 @@
-package sds.souscriptions.tache_metier;
+package sds.souscriptions;
 
 import sds.souscriptions.concept_metier.IdAbonnement;
 import sds.souscriptions.concept_metier.IdAbonnementGenerateur;

@@ -1,6 +1,6 @@
 package sds.batch;
 
-import sds.notification_email.infra.AbonnésExternes;
+import sds.notification_email.infra.AbonnéRepositoryEnPostgreSQL;
 import sds.notification_email.infra.EnvoyeurDeEmailMailChimp;
 import sds.notification_email.tache_metier.EnvoyerEmailRemerciementAutomatiquement;
 import sds.souscriptions.infra.AbonnementRepositoryEnPostgreSQL;
@@ -19,7 +19,7 @@ public class MinuteurFacade {
 
     private static final long MENSUELLEMENT = (long) (1000L * 60 * 60 * 24 * 365.25 / 12);
     Timer timer = new Timer();
-    EnvoyerEmailRemerciementAutomatiquement envoyerEmailRemerciement = new EnvoyerEmailRemerciementAutomatiquement(new AbonnésExternes(), new EnvoyeurDeEmailMailChimp());
+    EnvoyerEmailRemerciementAutomatiquement envoyerEmailRemerciement = new EnvoyerEmailRemerciementAutomatiquement(new AbonnéRepositoryEnPostgreSQL(), new EnvoyeurDeEmailMailChimp());
     RenouvellerAbonnementsAutomatiquement renouvellerAbonnements = new RenouvellerAbonnementsAutomatiquement(new AbonnementRepositoryEnPostgreSQL());
 
     public static void main(String[] args) throws ParseException {

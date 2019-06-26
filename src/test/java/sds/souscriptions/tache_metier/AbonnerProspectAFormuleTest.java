@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sds.souscriptions.AbonnementRepositoryEnMemoire;
 import sds.souscriptions.DateGenerateurEnMemoire;
+import sds.souscriptions.FormuleGatewayEnMemoire;
+import sds.souscriptions.IdAbonnementGenerateurDeInt;
 import sds.souscriptions.concept_metier.*;
 
 import java.time.LocalDate;
@@ -16,7 +18,7 @@ import static sds.souscriptions.tache_metier.AbonnerProspectAFormuleTest.Constan
 class AbonnerProspectAFormuleTest {
 
     private IdAbonnementGenerateur idAbonnementGenerateur;
-    private OffreFormules offreFormules;
+    private FormuleGateway formuleGateway;
     private AbonnementRepository abonnementRepository;
     private AbonnerProspectAFormule abonnerProspectAFormule;
     private DateGenerateur dateGenerateur;
@@ -25,10 +27,10 @@ class AbonnerProspectAFormuleTest {
     @BeforeEach
     void setUp() {
         abonnementRepository = new AbonnementRepositoryEnMemoire();
-        offreFormules = new OffreFormulesEnMemoire(list(FormuleChoisie.avec(ID_FORMULE, PRIX_DE_BASE, DURÉE)));
+        formuleGateway = new FormuleGatewayEnMemoire(list(FormuleChoisie.avec(ID_FORMULE, PRIX_DE_BASE, DURÉE)));
         idAbonnementGenerateur = new IdAbonnementGenerateurDeInt();
         dateGenerateur = new DateGenerateurEnMemoire(LE_23_AVRIL);
-        abonnerProspectAFormule = new AbonnerProspectAFormule(idAbonnementGenerateur, offreFormules, dateGenerateur, abonnementRepository);
+        abonnerProspectAFormule = new AbonnerProspectAFormule(idAbonnementGenerateur, formuleGateway, dateGenerateur, abonnementRepository);
     }
 
     @Test

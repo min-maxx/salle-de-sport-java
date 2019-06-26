@@ -1,5 +1,5 @@
 package sds.souscriptions.concept_metier;
 
-public interface OffreFormules {
+public interface FormuleGateway {
     FormuleChoisie trouveFormuleChoisie(IdFormule idFormule);
 }

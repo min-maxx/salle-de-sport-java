@@ -1,16 +1,16 @@
-package sds.souscriptions.tache_metier;
+package sds.souscriptions;
 
 import sds.souscriptions.concept_metier.FormuleChoisie;
+import sds.souscriptions.concept_metier.FormuleGateway;
 import sds.souscriptions.concept_metier.IdFormule;
-import sds.souscriptions.concept_metier.OffreFormules;
 
 import java.util.Collection;
 import java.util.HashMap;
 
-public class OffreFormulesEnMemoire implements OffreFormules {
+public class FormuleGatewayEnMemoire implements FormuleGateway {
     private HashMap<IdFormule, FormuleChoisie> formuleMap = new HashMap<>();
 
-    public OffreFormulesEnMemoire(Collection<FormuleChoisie> formuleChoisies) {
+    public FormuleGatewayEnMemoire(Collection<FormuleChoisie> formuleChoisies) {
         formuleChoisies.forEach(formule -> formuleMap.put(formule.id, formule));
     }
 

@@ -9,19 +9,19 @@ public class AbonnerProspectAFormule {
 
     private IdAbonnementGenerateur idAbonnementGenerateur;
     private DateGenerateur dateGenerateur;
-    private OffreFormules offreFormules;
+    private FormuleGateway formuleGateway;
     private AbonnementRepository abonnementRepository;
 
-    public AbonnerProspectAFormule(IdAbonnementGenerateur idAbonnementGenerateur, OffreFormules offreFormules, DateGenerateur dateGenerateur, AbonnementRepository abonnementRepository) {
+    public AbonnerProspectAFormule(IdAbonnementGenerateur idAbonnementGenerateur, FormuleGateway formuleGateway, DateGenerateur dateGenerateur, AbonnementRepository abonnementRepository) {
         this.idAbonnementGenerateur = idAbonnementGenerateur;
-        this.offreFormules = offreFormules;
+        this.formuleGateway = formuleGateway;
         this.dateGenerateur = dateGenerateur;
         this.abonnementRepository = abonnementRepository;
     }
 
 
     public AbonnementSouscrit abonne(Prospect prospect, IdFormule idFormule) {
-        FormuleChoisie formuleChoisie = offreFormules.trouveFormuleChoisie(idFormule);
+        FormuleChoisie formuleChoisie = formuleGateway.trouveFormuleChoisie(idFormule);
         LocalDate jourDeSouscription = dateGenerateur.aujourdhui();
 
         Abonnement abonnement = new Abonnement();

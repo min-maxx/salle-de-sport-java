@@ -1,6 +1,10 @@
 package sds.web;
 
-import sds.notification_email.concept_metier.*;
+import sds.notification_email.concept_metier.AbonnementDetail;
+import sds.notification_email.concept_metier.Abonné;
+import sds.notification_email.concept_metier.AdresseEmail;
+import sds.notification_email.concept_metier.IdAbonné;
+import sds.notification_email.infra.AbonnéRepositoryEnPostgreSQL;
 import sds.notification_email.infra.EnvoyeurDeEmailMailChimp;
 import sds.notification_email.tache_metier.EnvoyerEmailRecapitulatif;
 import sds.offre.infra.FormuleRepositoryEnPostgreSQL;
@@ -11,8 +15,8 @@ import sds.souscriptions.concept_metier.IdFormule;
 import sds.souscriptions.concept_metier.Prospect;
 import sds.souscriptions.infra.AbonnementRepositoryEnPostgreSQL;
 import sds.souscriptions.infra.DateGenerateurEnJava;
+import sds.souscriptions.infra.FormuleGatewayOffre;
 import sds.souscriptions.infra.IdAbonnementGenerateurDeUUID;
-import sds.souscriptions.infra.OffreFormulesExternes;
 import sds.souscriptions.tache_metier.AbonnerProspectAFormule;
 
 import javax.ws.rs.POST;
@@ -26,15 +30,11 @@ import static java.net.HttpURLConnection.*;
 public class VendeurFacade {
 
     // dépendances indirectes
-    private final FormuleRepositoryEnPostgreSQL formuleRepository = new FormuleRepositoryEnPostgreSQL();
-    private final ConsulterUneFormule consulterUneFormule = new ConsulterUneFormule(formuleRepository);
-    private final OffreFormulesExternes offreFormules = new OffreFormulesExternes(consulterUneFormule);
-    private final AbonnementRepositoryEnPostgreSQL abonnementRepository = new AbonnementRepositoryEnPostgreSQL();
-    private final EnvoyeurDeEmail envoyeurDeEmailMailChimp = new EnvoyeurDeEmailMailChimp();
+    private final FormuleGatewayOffre offreFormules = new FormuleGatewayOffre(new ConsulterUneFormule(new FormuleRepositoryEnPostgreSQL()));
 
     // dépendances directes à mock dans les tests
-    EnvoyerEmailRecapitulatif envoyerEmailRecapitulatif = new EnvoyerEmailRecapitulatif(envoyeurDeEmailMailChimp);
-    AbonnerProspectAFormule abonnerProspectAFormule = new AbonnerProspectAFormule(new IdAbonnementGenerateurDeUUID(), offreFormules, new DateGenerateurEnJava(), abonnementRepository);
+    EnvoyerEmailRecapitulatif envoyerEmailRecapitulatif = new EnvoyerEmailRecapitulatif(new AbonnéRepositoryEnPostgreSQL(), new EnvoyeurDeEmailMailChimp());
+    AbonnerProspectAFormule abonnerProspectAFormule = new AbonnerProspectAFormule(new IdAbonnementGenerateurDeUUID(), offreFormules, new DateGenerateurEnJava(), new AbonnementRepositoryEnPostgreSQL());
 
     @POST
     public int VendeurAbonneProspectAFormule(int indexEtudiant, String id, String email) {
