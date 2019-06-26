@@ -3,11 +3,18 @@ package sds.souscriptions;
 import sds.souscriptions.concept_metier.Abonnement;
 import sds.souscriptions.concept_metier.AbonnementRepository;
 import sds.souscriptions.concept_metier.IdAbonnement;
+import sds.souscriptions.concept_metier.IdFormule;
 
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 public class AbonnementRepositoryEnMemoire implements AbonnementRepository {
 
@@ -20,7 +27,7 @@ public class AbonnementRepositoryEnMemoire implements AbonnementRepository {
 
     @Override
     public void addOrReplace(Abonnement abonnement) {
-        abonnementMap.put(abonnement.Id(), abonnement);
+        abonnementMap.put(abonnement.id(), abonnement);
     }
 
     @Override
@@ -41,6 +48,13 @@ public class AbonnementRepositoryEnMemoire implements AbonnementRepository {
                 .filter(abonnement -> abonnement.jourDeFin().isAfter(LocalDate.now()))
                 .filter(abonnement -> abonnement.jourDeSouscription().isAfter(début) && abonnement.jourDeSouscription().isBefore(fin))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<IdFormule, Long> compteAbonnementsParIdFormule(List<IdFormule> idFormules) {
+        return abonnementMap.values().stream()
+                .map(Abonnement::idFormule)
+                .collect(groupingBy(identity(), counting()));
     }
 
     private boolean mêmeJour(LocalDate date, LocalDate autreJour) {

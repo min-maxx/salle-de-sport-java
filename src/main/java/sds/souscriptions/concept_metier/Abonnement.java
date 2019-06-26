@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public class Abonnement {
     private IdAbonnement id;
+
+
     private IdFormule idFormule;
     private Prix prix;
     private LocalDate jourDeSouscription;
@@ -21,8 +23,12 @@ public class Abonnement {
         return AbonnementSouscrit.avec(id, idFormule, prix, jourDeSouscription, jourDeFin);
     }
 
-    public IdAbonnement Id() {
+    public IdAbonnement id() {
         return id;
+    }
+
+    public IdFormule idFormule() {
+        return idFormule;
     }
 
     public Optional<AbonnementRenouvellé> renouvelle(LocalDate jourDeRenouvellement) {

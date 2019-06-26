@@ -29,7 +29,7 @@ public class AbonnésExternes implements Abonnés {
 
     private Abonné enAbonné(Abonnement abonnement) {
         return Abonné.avec(
-                IdAbonné.de(abonnement.Id().valeur()),
+                IdAbonné.de(abonnement.id().valeur()),
                 AdresseEmail.de(""), //TODO récupérer email
                 abonnement.jourDeSouscription());
     }

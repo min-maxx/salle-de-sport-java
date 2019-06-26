@@ -3,17 +3,17 @@ package sds.offre.concept_metier;
 import java.util.Objects;
 
 public class Prix {
-    public static Prix de(int valeur) {
+    public static Prix de(long valeur) {
         return new Prix(valeur);
     }
 
-    public int valeur() {
+    public long valeur() {
         return valeur;
     }
 
-    private int valeur;
+    private long valeur;
 
-    private Prix(int valeur) {
+    private Prix(long valeur) {
         if (valeur < 0) throw new IllegalArgumentException("La valleur doit être positive.");
 
         this.valeur = valeur;
