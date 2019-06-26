@@ -64,14 +64,8 @@ class GerantFacadeTest_ConsultationFormules {
     static class Constant {
         static final String UN_ID_FORMULE = "abc";
         static final String AUTRE_ID_FORMULE = "def";
-        static final Formule UNE_FORMULE = Formule(UN_ID_FORMULE);
-        static final Formule AUTRE_FORMULE = Formule(AUTRE_ID_FORMULE);
-
-        static Formule Formule(String id) {
-            Formule formule = new Formule();
-            formule.créé(IdFormule.de(id), Prix.de(0), Durée.AU_MOIS).orElseThrow();
-            return formule;
-        }
+        static final Formule UNE_FORMULE = new Formule(IdFormule.de(UN_ID_FORMULE), Prix.de(0), Durée.AU_MOIS);
+        static final Formule AUTRE_FORMULE = new Formule(IdFormule.de(AUTRE_ID_FORMULE), Prix.de(0), Durée.AU_MOIS);
 
         static FormuleDto dto(String id, int nombreAbo) {
             FormuleDto dto = new FormuleDto();

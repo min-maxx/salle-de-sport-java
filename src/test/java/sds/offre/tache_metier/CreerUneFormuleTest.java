@@ -25,7 +25,7 @@ class CreerUneFormuleTest {
     void doit_creer_une_formule() {
         assertThat(
                 creerUneFormule.crée(PRIX, DURÉE)
-        ).hasValue(
+        ).isEqualTo(
                 FormuleCreee.de(ID_GENERE, PRIX, DURÉE)
         );
 

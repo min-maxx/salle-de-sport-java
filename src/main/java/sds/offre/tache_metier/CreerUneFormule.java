@@ -2,8 +2,6 @@ package sds.offre.tache_metier;
 
 import sds.offre.concept_metier.*;
 
-import java.util.Optional;
-
 public class CreerUneFormule {
 
     private IdFormuleGenerateur idFormuleGenerateur;
@@ -14,13 +12,9 @@ public class CreerUneFormule {
         this.formuleRepository = formuleRepository;
     }
 
-    public Optional<FormuleCreee> crée(Prix prix, Durée durée) {
-        Formule formule = new Formule();
-
-        Optional<FormuleCreee> formuleCreee = formule.créé(idFormuleGenerateur.nouveauId(), prix, durée);
-
+    public FormuleCreee crée(Prix prix, Durée durée) {
+        Formule formule = new Formule(idFormuleGenerateur.nouveauId(), prix, durée);
         formuleRepository.addOrReplace(formule);
-
-        return formuleCreee;
+        return FormuleCreee.de(formule.id(), formule.prixDeBase(), formule.durée());
     }
 }
