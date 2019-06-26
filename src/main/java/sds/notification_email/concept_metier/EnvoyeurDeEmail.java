@@ -1,7 +1,9 @@
 package sds.notification_email.concept_metier;
 
-public interface EnvoyeurDeEmail {
-    EmailRemerciementEnvoyé envoieRemerciement(Abonné abonné);
+import java.time.LocalDate;
 
-    EmailRecapitulatifEnvoyé envoieRecapitulatif(Abonné abonné, AbonnementDetail abonnementDetail);
+public interface EnvoyeurDeEmail {
+    LocalDate envoieRemerciement(Abonné abonné);
+
+    LocalDate envoieRecapitulatif(Abonné abonné, AbonnementDetail abonnementDetail);
 }

@@ -2,7 +2,11 @@ package sds.web;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sds.notification_email.concept_metier.*;
+import sds.notification_email.concept_metier.AbonnementDetail;
+import sds.notification_email.concept_metier.Abonné;
+import sds.notification_email.concept_metier.AdresseEmail;
+import sds.notification_email.concept_metier.IdAbonné;
+import sds.notification_email.tache_metier.EmailRecapitulatifEnvoyé;
 import sds.notification_email.tache_metier.EnvoyerEmailRecapitulatif;
 import sds.souscriptions.concept_metier.*;
 import sds.souscriptions.tache_metier.AbonnerProspectAFormule;
@@ -34,7 +38,7 @@ class VendeurFacadeTest {
                 .thenReturn(AbonnementSouscrit.avec(IdAbonnement.de(ID_ABO), null, null, SOUSCRIPTION, FIN_ABO));
 
         when(vendeurFacade.envoyerEmailRecapitulatif.envoie(any(Abonné.class), any(AbonnementDetail.class)))
-                .thenReturn(new EmailRecapitulatifEnvoyé());
+                .thenReturn(EmailRecapitulatifEnvoyé.avec(null, null));
     }
 
     @Test

@@ -27,7 +27,7 @@ class EnvoyerAdresseEmailRemerciementTest {
         assertThat(
                 new EnvoyerEmailRemerciementAutomatiquement(abonnéRepository, envoyeurDeEmail).envoie(AOUT_2021)
         ).contains(
-                EmailRemerciementEnvoyé.avec(IdAbonné.de("2"), DATE_ENVOI, AdresseEmail.de("s@2.com"))
+                EmailRemerciementEnvoyé.avec(DATE_ENVOI, AdresseEmail.de("s@2.com"))
         ).hasSize(1);
 
     }

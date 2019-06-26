@@ -2,13 +2,12 @@ package sds.notification_email.tache_metier;
 
 import sds.notification_email.concept_metier.Abonné;
 import sds.notification_email.concept_metier.AbonnéRepository;
-import sds.notification_email.concept_metier.EmailRemerciementEnvoyé;
 import sds.notification_email.concept_metier.EnvoyeurDeEmail;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Collection;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * Pour voir un exemple de tests, se rendre à la classe
@@ -26,9 +25,12 @@ public class EnvoyerEmailRemerciementAutomatiquement {
 
     public Collection<EmailRemerciementEnvoyé> envoie(YearMonth moisActuel) {
         Collection<Abonné> abonnés = abonnéRepository.trouveAbonnésAyantSoucritLe(moisActuel.minusYears(3));
-        return abonnés.stream()
-                .map(envoyeurDeEmail::envoieRemerciement)
-                .collect(toList());
+        Collection<EmailRemerciementEnvoyé> list = new ArrayList<>();
+        for (Abonné abonné : abonnés) {
+            LocalDate dateEnvoi = envoyeurDeEmail.envoieRemerciement(abonné);
+            list.add(EmailRemerciementEnvoyé.avec(dateEnvoi, abonné.email()));
+        }
+        return list;
     }
 
 }
