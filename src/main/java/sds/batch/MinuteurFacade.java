@@ -18,21 +18,22 @@ import java.util.TimerTask;
 public class MinuteurFacade {
 
     private static final long MENSUELLEMENT = (long) (1000L * 60 * 60 * 24 * 365.25 / 12);
-    private final EnvoyerEmailRemerciementAutomatiquement envoyerEmailRemerciement = new EnvoyerEmailRemerciementAutomatiquement(new AbonnésExternes(), new EnvoyeurDeEmailMailChimp());
     Timer timer = new Timer();
+    EnvoyerEmailRemerciementAutomatiquement envoyerEmailRemerciement = new EnvoyerEmailRemerciementAutomatiquement(new AbonnésExternes(), new EnvoyeurDeEmailMailChimp());
     RenouvellerAbonnementsAutomatiquement renouvellerAbonnements = new RenouvellerAbonnementsAutomatiquement(new AbonnementRepositoryEnPostgreSQL());
 
     public static void main(String[] args) throws ParseException {
-        new MinuteurFacade().MinuteurRenouvelleAbonnementsAutomatiquementChaqueMois();
-        new MinuteurFacade().MinuteurEnvoieEmailDeRemerciementAutomatiquementChaqueMois();
+        var minuteurFacade = new MinuteurFacade();
+        minuteurFacade.MinuteurRenouvelleAbonnementsAutomatiquementChaqueMois();
+        minuteurFacade.MinuteurEnvoieEmailDeRemerciementAutomatiquementChaqueMois();
     }
 
-    public void MinuteurRenouvelleAbonnementsAutomatiquementChaqueMois() throws ParseException {
+    void MinuteurRenouvelleAbonnementsAutomatiquementChaqueMois() throws ParseException {
         timer.schedule(TacheDeRenouvellement(), moisProchain(), MENSUELLEMENT);
     }
 
 
-    public void MinuteurEnvoieEmailDeRemerciementAutomatiquementChaqueMois() throws ParseException {
+    void MinuteurEnvoieEmailDeRemerciementAutomatiquementChaqueMois() throws ParseException {
         timer.schedule(TacheEnvoiRemerciement(), moisProchain(), MENSUELLEMENT);
     }
 
