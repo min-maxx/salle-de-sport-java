@@ -36,6 +36,15 @@ class ChangerLePrixDeFormuleTest {
                 NOUVEAU_PRIX);
     }
 
+    @Test
+    void doit_pas_changer_prix_formule_quand_prix_est_identique() {
+        Formule formule = new Formule(ID, ANCIEN_PRIX, Durée.AU_MOIS);
+        formuleRepository.addOrReplace(formule);
+
+        assertThat(
+                changerLePrixDeFormule.change(ID, ANCIEN_PRIX)
+        ).isEmpty();
+    }
 
     static class Constant {
         static final IdFormule ID = IdFormule.de("22");

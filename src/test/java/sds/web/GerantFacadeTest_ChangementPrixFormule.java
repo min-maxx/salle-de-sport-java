@@ -48,21 +48,8 @@ class GerantFacadeTest_ChangementPrixFormule {
 
     @Test
     void doit_être_ko_quand_création_est_interrompu() {
-
         when(gerantFacade.changerLePrixDeFormule.change(any(IdFormule.class), any(Prix.class)))
                 .thenThrow(new RuntimeException());
-
-        int result = gerantFacade.GerantChangeLePrixDuneFormule("32", 150);
-
-        assertThat(result).isEqualTo(HttpURLConnection.HTTP_INTERNAL_ERROR);
-    }
-
-
-    @Test
-    void doit_être_ko_quand_création_échoue() {
-
-        when(gerantFacade.changerLePrixDeFormule.change(any(IdFormule.class), any(Prix.class)))
-                .thenReturn(Optional.empty());
 
         int result = gerantFacade.GerantChangeLePrixDuneFormule("32", 150);
 

@@ -63,7 +63,7 @@ public class GerantFacade {
             Durée durée = Durée.values()[indexDurée];
             try {
                 //HERE Authent. du Gérant
-                creerUneFormule.crée(prix, durée);
+                FormuleCreee formuleCreee = creerUneFormule.crée(prix, durée);
                 return HTTP_OK;
             } catch (Exception e) {
                 return HTTP_INTERNAL_ERROR;
@@ -81,9 +81,7 @@ public class GerantFacade {
             try {
                 //HERE Authent. du Gérant
                 Optional<PrixFormuleChangee> prixFormuleChangee = changerLePrixDeFormule.change(idFormule, prix);
-                return prixFormuleChangee.isPresent() ?
-                        HTTP_OK :
-                        HTTP_INTERNAL_ERROR;
+                return HTTP_OK;
             } catch (Exception e) {
                 return HTTP_INTERNAL_ERROR;
             }

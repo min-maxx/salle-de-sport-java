@@ -1,7 +1,6 @@
 package sds.offre.concept_metier;
 
 import java.util.Objects;
-import java.util.Optional;
 
 public class Formule {
 
@@ -15,11 +14,8 @@ public class Formule {
         this.durée = durée;
     }
 
-    public Optional<PrixFormuleChangee> changePrix(Prix nouveauPrix) {
-        if (prix.equals(nouveauPrix)) return Optional.empty();
-
+    public void changePrix(Prix nouveauPrix) {
         prix = nouveauPrix;
-        return Optional.of(PrixFormuleChangee.de(id, prix));
     }
 
     public IdFormule id() {
@@ -32,6 +28,10 @@ public class Formule {
 
     public Durée durée() {
         return durée;
+    }
+
+    public boolean lePrixEstIdentique(Prix nouveauPrix) {
+        return prix.equals(nouveauPrix);
     }
 
     @Override

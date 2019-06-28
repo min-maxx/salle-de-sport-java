@@ -17,17 +17,13 @@ class FormuleTest {
 
     @Test
     void peut_changer_prix_s_il_est_different() {
+        Formule formule = new Formule(ID, PRIX, UN_MOIS);
+        formule.changePrix(NOUVEAU_PRIX);
         assertThat(
-                new Formule(ID, PRIX, UN_MOIS).changePrix(NOUVEAU_PRIX)
-        ).hasValue(
-                PrixFormuleChangee.de(ID, NOUVEAU_PRIX));
-    }
-
-    @Test
-    void peut_pas_changer_prix_s_il_est_identique() {
-        assertThat(
-                new Formule(ID, PRIX, UN_MOIS).changePrix(PRIX)
-        ).isEmpty();
+                formule.prixDeBase()
+        ).isEqualTo(
+                NOUVEAU_PRIX
+        );
     }
 
     static class Constant {

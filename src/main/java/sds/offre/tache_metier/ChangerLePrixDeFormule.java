@@ -13,11 +13,11 @@ public class ChangerLePrixDeFormule {
 
     public Optional<PrixFormuleChangee> change(IdFormule id, Prix nouveauPrix) {
         Formule formule = formuleRepository.get(id);
+        if (formule.lePrixEstIdentique(nouveauPrix)) return Optional.empty();
 
-        Optional<PrixFormuleChangee> formuleChangee = formule.changePrix(nouveauPrix);
-
+        formule.changePrix(nouveauPrix);
         formuleRepository.addOrReplace(formule);
-
-        return formuleChangee;
+        return Optional.of(PrixFormuleChangee.de(id, formule.prixDeBase()));
     }
+
 }
