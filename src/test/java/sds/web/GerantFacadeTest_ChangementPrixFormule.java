@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sds.offre.concept_metier.IdFormule;
 import sds.offre.concept_metier.Prix;
-import sds.offre.concept_metier.PrixFormuleChangee;
 import sds.offre.tache_metier.ChangerLePrixDeFormule;
+import sds.offre.tache_metier.PrixFormuleChangee;
 
 import java.net.HttpURLConnection;
 import java.util.Optional;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 class GerantFacadeTest_ChangementPrixFormule {
 
-    private static final PrixFormuleChangee FORMULE = PrixFormuleChangee.de(IdFormule.de("null"), null);
+    private static final PrixFormuleChangee FORMULE = PrixFormuleChangee.de(IdFormule.de("any"), null);
     private GerantFacade gerantFacade;
 
     @BeforeEach

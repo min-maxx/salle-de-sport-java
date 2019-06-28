@@ -1,6 +1,9 @@
 package sds.offre.tache_metier;
 
-import sds.offre.concept_metier.*;
+import sds.offre.concept_metier.Formule;
+import sds.offre.concept_metier.FormuleRepository;
+import sds.offre.concept_metier.IdFormule;
+import sds.offre.concept_metier.Prix;
 
 import java.util.Optional;
 
@@ -17,7 +20,7 @@ public class ChangerLePrixDeFormule {
 
         formule.changePrix(nouveauPrix);
         formuleRepository.addOrReplace(formule);
-        return Optional.of(PrixFormuleChangee.de(id, formule.prixDeBase()));
+        return Optional.of(PrixFormuleChangee.de(formule));
     }
 
 }

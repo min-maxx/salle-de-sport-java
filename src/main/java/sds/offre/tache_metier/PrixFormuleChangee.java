@@ -1,4 +1,8 @@
-package sds.offre.concept_metier;
+package sds.offre.tache_metier;
+
+import sds.offre.concept_metier.Formule;
+import sds.offre.concept_metier.IdFormule;
+import sds.offre.concept_metier.Prix;
 
 import java.util.Objects;
 
@@ -7,10 +11,14 @@ public class PrixFormuleChangee {
         return new PrixFormuleChangee(id, prix);
     }
 
+    public static PrixFormuleChangee de(Formule formule) {
+        return new PrixFormuleChangee(formule.id(), formule.prixDeBase());
+    }
+
     final IdFormule id;
     final Prix prix;
 
-    PrixFormuleChangee(IdFormule id, Prix prix) {
+    private PrixFormuleChangee(IdFormule id, Prix prix) {
         this.id = id;
         this.prix = prix;
     }

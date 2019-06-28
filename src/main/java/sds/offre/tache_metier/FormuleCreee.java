@@ -1,4 +1,9 @@
-package sds.offre.concept_metier;
+package sds.offre.tache_metier;
+
+import sds.offre.concept_metier.Durée;
+import sds.offre.concept_metier.Formule;
+import sds.offre.concept_metier.IdFormule;
+import sds.offre.concept_metier.Prix;
 
 import java.util.Objects;
 
@@ -15,6 +20,10 @@ public class FormuleCreee {
 
     public static FormuleCreee de(IdFormule id, Prix prix, Durée durée) {
         return new FormuleCreee(id, prix, durée);
+    }
+
+    public static FormuleCreee de(Formule formule) {
+        return new FormuleCreee(formule.id(), formule.prixDeBase(), formule.durée());
     }
 
     @Override

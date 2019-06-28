@@ -15,6 +15,6 @@ public class CreerUneFormule {
     public FormuleCreee crée(Prix prix, Durée durée) {
         Formule formule = new Formule(idFormuleGenerateur.nouveauId(), prix, durée);
         formuleRepository.addOrReplace(formule);
-        return FormuleCreee.de(formule.id(), formule.prixDeBase(), formule.durée());
+        return FormuleCreee.de(formule);
     }
 }
