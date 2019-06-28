@@ -13,14 +13,13 @@ public class Abonnement {
     private LocalDate jourDeFin;
     private Durée durée;
 
-    public AbonnementSouscrit créé(IdAbonnement nouveauId, FormuleChoisie formuleChoisie, Prospect prospect, LocalDate jourDeSouscription) {
+    public Abonnement(IdAbonnement nouveauId, FormuleChoisie formuleChoisie, Prospect prospect, LocalDate jourDeSouscription) {
         this.id = nouveauId;
         this.idFormule = formuleChoisie.id;
         this.prix = formuleChoisie.prixAbonnementPour(prospect);
         this.jourDeSouscription = jourDeSouscription;
         this.durée = formuleChoisie.durée;
         this.jourDeFin = jourDeSouscription.plusMonths(durée.nombreDeMois());
-        return AbonnementSouscrit.avec(id, idFormule, prix, jourDeSouscription, jourDeFin);
     }
 
     public IdAbonnement id() {
@@ -29,6 +28,10 @@ public class Abonnement {
 
     public IdFormule idFormule() {
         return idFormule;
+    }
+
+    public Prix prix() {
+        return prix;
     }
 
     public Optional<AbonnementRenouvellé> renouvelle(LocalDate jourDeRenouvellement) {

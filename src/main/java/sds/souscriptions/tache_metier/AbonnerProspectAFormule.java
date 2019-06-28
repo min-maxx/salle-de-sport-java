@@ -24,8 +24,8 @@ public class AbonnerProspectAFormule {
         FormuleChoisie formuleChoisie = formuleGateway.trouveFormuleChoisie(idFormule);
         LocalDate jourDeSouscription = dateGenerateur.aujourdhui();
 
-        Abonnement abonnement = new Abonnement();
-        AbonnementSouscrit abonnementSouscrit = abonnement.créé(idAbonnementGenerateur.nouveauId(), formuleChoisie, prospect, jourDeSouscription);
+        Abonnement abonnement = new Abonnement(idAbonnementGenerateur.nouveauId(), formuleChoisie, prospect, jourDeSouscription);
+        AbonnementSouscrit abonnementSouscrit = AbonnementSouscrit.de(abonnement);
 
         abonnementRepository.addOrReplace(abonnement);
 

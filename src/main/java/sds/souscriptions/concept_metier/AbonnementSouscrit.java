@@ -23,6 +23,10 @@ public class AbonnementSouscrit {
         return new AbonnementSouscrit(id, idFormule, prix, jourDeSouscription, jourDeFin);
     }
 
+    public static AbonnementSouscrit de(Abonnement abonnement) {
+        return new AbonnementSouscrit(abonnement.id(), abonnement.idFormule(), abonnement.prix(), abonnement.jourDeSouscription(), abonnement.jourDeFin());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
