@@ -1,7 +1,6 @@
 package sds.souscriptions.tache_metier;
 
 import sds.souscriptions.concept_metier.Abonnement;
-import sds.souscriptions.concept_metier.AbonnementRenouvellé;
 import sds.souscriptions.concept_metier.AbonnementRepository;
 
 import java.time.LocalDate;
@@ -24,6 +23,7 @@ public class RenouvellerAbonnementsAutomatiquement {
             LocalDate ancienJourDefin = abonnement.jourDeFin();
             abonnement.renouvelle(jourDeFin);
             if (ancienJourDefin.equals(abonnement.jourDeFin())) break;
+
             abonnementRenouvelés.add(AbonnementRenouvellé.de(abonnement));
         }
 

@@ -1,4 +1,9 @@
-package sds.souscriptions.concept_metier;
+package sds.souscriptions.tache_metier;
+
+import sds.souscriptions.concept_metier.Abonnement;
+import sds.souscriptions.concept_metier.IdAbonnement;
+import sds.souscriptions.concept_metier.IdFormule;
+import sds.souscriptions.concept_metier.Prix;
 
 import java.time.LocalDate;
 import java.util.Objects;

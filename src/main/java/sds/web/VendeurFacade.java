@@ -9,7 +9,6 @@ import sds.notification_email.infra.EnvoyeurDeEmailMailChimp;
 import sds.notification_email.tache_metier.EnvoyerEmailRecapitulatif;
 import sds.offre.infra.FormuleRepositoryEnPostgreSQL;
 import sds.offre.tache_metier.ConsulterUneFormule;
-import sds.souscriptions.concept_metier.AbonnementSouscrit;
 import sds.souscriptions.concept_metier.Etudiant;
 import sds.souscriptions.concept_metier.IdFormule;
 import sds.souscriptions.concept_metier.Prospect;
@@ -17,6 +16,7 @@ import sds.souscriptions.infra.AbonnementRepositoryEnPostgreSQL;
 import sds.souscriptions.infra.DateGenerateurEnJava;
 import sds.souscriptions.infra.FormuleGatewayOffre;
 import sds.souscriptions.infra.IdAbonnementGenerateurDeUUID;
+import sds.souscriptions.tache_metier.AbonnementSouscrit;
 import sds.souscriptions.tache_metier.AbonnerProspectAFormule;
 
 import javax.ws.rs.POST;

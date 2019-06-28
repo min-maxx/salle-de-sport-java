@@ -8,7 +8,11 @@ import sds.notification_email.concept_metier.AdresseEmail;
 import sds.notification_email.concept_metier.IdAbonné;
 import sds.notification_email.tache_metier.EmailRecapitulatifEnvoyé;
 import sds.notification_email.tache_metier.EnvoyerEmailRecapitulatif;
-import sds.souscriptions.concept_metier.*;
+import sds.souscriptions.concept_metier.Etudiant;
+import sds.souscriptions.concept_metier.IdAbonnement;
+import sds.souscriptions.concept_metier.IdFormule;
+import sds.souscriptions.concept_metier.Prospect;
+import sds.souscriptions.tache_metier.AbonnementSouscrit;
 import sds.souscriptions.tache_metier.AbonnerProspectAFormule;
 
 import java.net.HttpURLConnection;
