@@ -7,5 +7,5 @@ public interface AbonnéRepository {
 
     void addOrReplace(Abonné abonné);
 
-    Collection<Abonné> trouveAbonnésAyantSoucritLe(YearMonth moisDeSouscription);
+    Collection<Abonné> trouveAbonnésAyantSoucritPendant(YearMonth moisAnnée);
 }

@@ -24,7 +24,7 @@ public class EnvoyerEmailRemerciementAutomatiquement {
     }
 
     public Collection<EmailRemerciementEnvoyé> envoie(YearMonth moisActuel) {
-        Collection<Abonné> abonnés = abonnéRepository.trouveAbonnésAyantSoucritLe(moisActuel.minusYears(3));
+        Collection<Abonné> abonnés = abonnéRepository.trouveAbonnésAyantSoucritPendant(moisActuel.minusYears(3));
         Collection<EmailRemerciementEnvoyé> list = new ArrayList<>();
         for (Abonné abonné : abonnés) {
             LocalDate dateEnvoi = envoyeurDeEmail.envoieRemerciement(abonné);

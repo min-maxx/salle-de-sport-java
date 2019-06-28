@@ -15,7 +15,7 @@ public class AbonnéRepositoryEnPostgreSQL implements AbonnéRepository {
     }
 
     @Override
-    public Collection<Abonné> trouveAbonnésAyantSoucritLe(YearMonth moisDeSouscription) {
+    public Collection<Abonné> trouveAbonnésAyantSoucritPendant(YearMonth moisAnnée) {
         //SELECT * FROM ...
         throw new UnsupportedOperationException("Pas encore implémenté");
     }
