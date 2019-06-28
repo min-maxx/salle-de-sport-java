@@ -5,10 +5,8 @@ import sds.souscriptions.concept_metier.AbonnementRenouvellé;
 import sds.souscriptions.concept_metier.AbonnementRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
-
-import static java.util.stream.Collectors.toList;
 
 public class RenouvellerAbonnementsAutomatiquement {
 
@@ -21,11 +19,13 @@ public class RenouvellerAbonnementsAutomatiquement {
     public Collection<AbonnementRenouvellé> renouvelle(LocalDate jourDeFin) {
         Collection<Abonnement> abonnementsARenouveller = abonnementRepository.trouveAbonnementsFinissantLe(jourDeFin);
 
-        Collection<AbonnementRenouvellé> abonnementRenouvelés = abonnementsARenouveller.stream()
-                .map(abonnement -> abonnement.renouvelle(jourDeFin))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(toList());
+        Collection<AbonnementRenouvellé> abonnementRenouvelés = new ArrayList<>();
+        for (Abonnement abonnement : abonnementsARenouveller) {
+            LocalDate ancienJourDefin = abonnement.jourDeFin();
+            abonnement.renouvelle(jourDeFin);
+            if (ancienJourDefin.equals(abonnement.jourDeFin())) break;
+            abonnementRenouvelés.add(AbonnementRenouvellé.de(abonnement));
+        }
 
         abonnementRepository.addOrReplaceAll(abonnementsARenouveller);
 

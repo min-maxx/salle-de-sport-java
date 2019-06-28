@@ -1,7 +1,6 @@
 package sds.souscriptions.concept_metier;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 public class Abonnement {
     private IdAbonnement id;
@@ -34,11 +33,10 @@ public class Abonnement {
         return prix;
     }
 
-    public Optional<AbonnementRenouvellé> renouvelle(LocalDate jourDeRenouvellement) {
+    public void renouvelle(LocalDate jourDeRenouvellement) {
         if (jourDeFin.equals(jourDeRenouvellement)) {
-            return Optional.of(AbonnementRenouvellé.avec(id, jourDeFin.plusMonths(durée.nombreDeMois())));
+            this.jourDeFin = this.jourDeFin.plusMonths(durée.nombreDeMois());
         }
-        return Optional.empty();
     }
 
     public LocalDate jourDeFin() {

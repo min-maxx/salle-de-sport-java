@@ -16,6 +16,10 @@ public class AbonnementRenouvellé {
         this.jourDeFin = jourDeFin;
     }
 
+    public static AbonnementRenouvellé de(Abonnement abonnement) {
+        return new AbonnementRenouvellé(abonnement.id(), abonnement.jourDeFin());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

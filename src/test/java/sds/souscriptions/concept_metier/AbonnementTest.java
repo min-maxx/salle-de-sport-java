@@ -39,11 +39,10 @@ class AbonnementTest {
     void peut_être_renouvellé_de_1_mois_quand_mensuel() {
         Abonnement abonnement = new Abonnement(ID_ABO, Formule(MENSUELLE), PROSPECT, LE_23_AVRIL);
 
-        assertThat(
-                abonnement.renouvelle(LE_23_MAI)
-        ).hasValue(
-                AbonnementRenouvellé.avec(ID_ABO, LE_23_JUIN)
-        );
+        abonnement.renouvelle(LE_23_MAI);
+
+        assertThat(abonnement.jourDeSouscription()).isEqualTo(LE_23_AVRIL);
+        assertThat(abonnement.jourDeFin()).isEqualTo(LE_23_JUIN);
     }
 
 
@@ -51,20 +50,20 @@ class AbonnementTest {
     void peut_être_renouvellé_de_1_an_quand_annuel() {
         Abonnement abonnement = new Abonnement(ID_ABO, Formule(ANNUELLE), PROSPECT, AVRIL_2018);
 
-        assertThat(
-                abonnement.renouvelle(AVRIL_2019)
-        ).hasValue(
-                AbonnementRenouvellé.avec(ID_ABO, AVRIL_2020)
-        );
+        abonnement.renouvelle(AVRIL_2019);
+
+        assertThat(abonnement.jourDeSouscription()).isEqualTo(AVRIL_2018);
+        assertThat(abonnement.jourDeFin()).isEqualTo(AVRIL_2020);
     }
 
     @Test
     void peut_pas_être_renouvellé_quand_pas_fini() {
-        Abonnement abonnement = new Abonnement(ID_ABO, Formule(MENSUELLE), PROSPECT, AVRIL_2018);
+        Abonnement abonnement = new Abonnement(ID_ABO, Formule(MENSUELLE), PROSPECT, LE_23_AVRIL);
 
-        assertThat(
-                abonnement.renouvelle(AVRIL_2018)
-        ).isEmpty();
+        abonnement.renouvelle(AVRIL_2018);
+
+        assertThat(abonnement.jourDeSouscription()).isEqualTo(LE_23_AVRIL);
+        assertThat(abonnement.jourDeFin()).isEqualTo(LE_23_MAI);
     }
 
     static class Constant {
@@ -72,9 +71,9 @@ class AbonnementTest {
         static final LocalDate LE_23_AVRIL = LocalDate.of(2019, Month.APRIL, 23);
         static final LocalDate LE_23_MAI = LocalDate.of(2019, Month.MAY, 23);
         static final LocalDate LE_23_JUIN = LocalDate.of(2019, Month.JUNE, 23);
-        static final LocalDate AVRIL_2018 = LocalDate.of(2018, Month.APRIL, 23);
-        static final LocalDate AVRIL_2019 = LocalDate.of(2019, Month.APRIL, 23);
-        static final LocalDate AVRIL_2020 = LocalDate.of(2020, Month.APRIL, 23);
+        static final LocalDate AVRIL_2018 = LocalDate.of(2018, Month.APRIL, 25);
+        static final LocalDate AVRIL_2019 = LocalDate.of(2019, Month.APRIL, 25);
+        static final LocalDate AVRIL_2020 = LocalDate.of(2020, Month.APRIL, 25);
 
         static final IdAbonnement ID_ABO = IdAbonnement.de("33");
         static final IdFormule ID_FORMULE = IdFormule.de("3");
