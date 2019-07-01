@@ -43,18 +43,10 @@ public class AbonnementRepositoryEnMemoire implements AbonnementRepository {
     }
 
     @Override
-    public Collection<Abonnement> trouveAbonnementsEnCoursSouscritsEntre(LocalDate début, LocalDate fin) {
-        return abonnementMap.values().stream()
-                .filter(abonnement -> abonnement.jourDeFin().isAfter(LocalDate.now()))
-                .filter(abonnement -> abonnement.jourDeSouscription().isAfter(début) && abonnement.jourDeSouscription().isBefore(fin))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public Map<IdFormule, Long> compteAbonnementsParIdFormule(List<IdFormule> idFormules) {
         return abonnementMap.values().stream()
                 .map(Abonnement::idFormule)
-                .filter(idFormule -> idFormules.contains(idFormule))
+                .filter(idFormules::contains)
                 .collect(groupingBy(identity(), counting()));
     }
 

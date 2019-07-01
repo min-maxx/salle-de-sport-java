@@ -14,7 +14,5 @@ public interface AbonnementRepository {
 
     Collection<Abonnement> trouveAbonnementsFinissantLe(LocalDate jourDeFin);
 
-    Collection<Abonnement> trouveAbonnementsEnCoursSouscritsEntre(LocalDate début, LocalDate fin);
-
     Map<IdFormule, Long> compteAbonnementsParIdFormule(List<IdFormule> idFormules);
 }
