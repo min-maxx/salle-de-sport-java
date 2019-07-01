@@ -2,8 +2,10 @@ package sds.souscriptions.tache_metier;
 
 
 import sds.souscriptions.concept_metier.*;
+import sds.utils.concept_metier.Event;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class AbonnerProspectAFormule {
 
@@ -24,11 +26,10 @@ public class AbonnerProspectAFormule {
         FormuleChoisie formuleChoisie = formuleGateway.trouveFormuleChoisie(idFormule);
         LocalDate jourDeSouscription = dateGenerateur.aujourdhui();
 
-        Abonnement abonnement = new Abonnement();
-        AbonnementSouscrit abonnementSouscrit = abonnement.créé(idAbonnementGenerateur.nouveauId(), formuleChoisie, prospect, jourDeSouscription);
+        Abonnement abonnement = new Abonnement(idAbonnementGenerateur.nouveauId(), formuleChoisie, prospect, jourDeSouscription);
 
-        abonnementRepository.addOrReplace(abonnement);
+        List<Event> events = abonnementRepository.addOrReplace(abonnement);
 
-        return abonnementSouscrit;
+        return (AbonnementSouscrit) events.get(0);
     }
 }

@@ -31,7 +31,7 @@ class VendeurFacadeTest {
         vendeurFacade.envoyerEmailRecapitulatif = mock(EnvoyerEmailRecapitulatif.class);
 
         when(vendeurFacade.abonnerProspectAFormule.abonne(any(Prospect.class), any(IdFormule.class)))
-                .thenReturn(AbonnementSouscrit.avec(IdAbonnement.de(ID_ABO), null, null, SOUSCRIPTION, FIN_ABO));
+                .thenReturn(AbonnementSouscrit.avec(IdAbonnement.de(ID_ABO), null, null, null, SOUSCRIPTION, FIN_ABO));
 
         when(vendeurFacade.envoyerEmailRecapitulatif.envoie(any(Abonné.class), any(AbonnementDetail.class)))
                 .thenReturn(new EmailRecapitulatifEnvoyé());

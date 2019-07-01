@@ -1,5 +1,7 @@
 package sds.souscriptions.concept_metier;
 
+import sds.utils.concept_metier.Event;
+
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -8,9 +10,9 @@ import java.util.Map;
 public interface AbonnementRepository {
     Abonnement get(IdAbonnement id);
 
-    void addOrReplace(Abonnement abonnement);
+    List<Event> addOrReplace(Abonnement abonnement);
 
-    void addOrReplaceAll(Collection<Abonnement> abonnements);
+    Map<IdAbonnement, List<Event>> addOrReplaceAll(Collection<Abonnement> abonnements);
 
     Collection<Abonnement> trouveAbonnementsFinissantLe(LocalDate jourDeFin);
 

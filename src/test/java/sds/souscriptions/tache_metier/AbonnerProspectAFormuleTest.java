@@ -39,7 +39,7 @@ class AbonnerProspectAFormuleTest {
         assertThat(
                 abonnerProspectAFormule.abonne(Prospect.avec(Etudiant.OUI), ID_FORMULE)
         ).isEqualTo(
-                AbonnementSouscrit.avec(ID_GENERE, ID_FORMULE, PRIX_REDUIT, LE_23_AVRIL, LE_23_MAI)
+                AbonnementSouscrit.avec(ID_GENERE, ID_FORMULE, PRIX_REDUIT, DURÉE, LE_23_AVRIL, LE_23_MAI)
         );
 
         assertThat(
@@ -54,7 +54,6 @@ class AbonnerProspectAFormuleTest {
         static final Prix PRIX_REDUIT = Prix.de(8.56);
         static final Durée DURÉE = Durée.MENSUELLE;
         static final IdAbonnement ID_GENERE = IdAbonnement.de("1");
-        static final String EMAIL = "mail@com";
 
         static final LocalDate LE_23_AVRIL = LocalDate.of(2019, Month.APRIL, 23);
         static final LocalDate LE_23_MAI = LocalDate.of(2019, Month.MAY, 23);

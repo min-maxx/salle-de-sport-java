@@ -35,9 +35,7 @@ class RenouvellerAbonnementsAutomatiquementTest {
 
 
     private Abonnement Abo(IdAbonnement id, Durée durée, LocalDate jourDeSouscription) {
-        Abonnement abonnement = new Abonnement();
-        abonnement.créé(id, FormuleChoisie.avec(IdFormule.de("2"), Prix.de(10.99), durée), Prospect.avec(Etudiant.NON), jourDeSouscription);
-        return abonnement;
+        return new Abonnement(id, FormuleChoisie.avec(IdFormule.de("2"), Prix.de(10.99), durée), Prospect.avec(Etudiant.NON), jourDeSouscription);
     }
 
     static class Constant {
@@ -48,7 +46,6 @@ class RenouvellerAbonnementsAutomatiquementTest {
         static final LocalDate AOUT_2019 = LocalDate.of(2019, Month.AUGUST, 8);
         static final LocalDate SEPTEMBRE_2019 = LocalDate.of(2019, Month.SEPTEMBER, 8);
         static final LocalDate AOUT_2020 = LocalDate.of(2020, Month.AUGUST, 8);
-        static final String EMAIL = "mail@com";
 
     }
 }
