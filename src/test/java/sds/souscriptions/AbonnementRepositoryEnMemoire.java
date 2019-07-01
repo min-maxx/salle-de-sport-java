@@ -5,17 +5,18 @@ import sds.souscriptions.concept_metier.AbonnementRepository;
 import sds.souscriptions.concept_metier.IdAbonnement;
 import sds.souscriptions.concept_metier.IdFormule;
 import sds.utils.concept_metier.Event;
+import sds.utils.concept_metier.EventSourcingRepository;
 
 import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
-public class AbonnementRepositoryEnMemoire implements AbonnementRepository {
-
-    private HashMap<IdAbonnement, List<Event>> eventsStreams = new HashMap<>();
+public class AbonnementRepositoryEnMemoire extends EventSourcingRepository<IdAbonnement> implements AbonnementRepository {
 
     @Override
     public Abonnement get(IdAbonnement id) {
@@ -24,11 +25,7 @@ public class AbonnementRepositoryEnMemoire implements AbonnementRepository {
 
     @Override
     public List<Event> addOrReplace(Abonnement abonnement) {
-        List<Event> events = eventsStreams.getOrDefault(abonnement.id(), new ArrayList<>());
-        List<Event> changements = abonnement.changements();
-        events.addAll(changements);
-        eventsStreams.put(abonnement.id(), events);
-        return changements;
+        return appendStream(abonnement.id(), abonnement.changements());
     }
 
     @Override
@@ -46,15 +43,6 @@ public class AbonnementRepositoryEnMemoire implements AbonnementRepository {
                 .map(id -> new Abonnement(eventsStreams.get(id)))
                 .filter(abonnement -> mêmeJour(abonnement.jourDeFin(), jour))
                 .collect(toList());
-    }
-
-    @Override
-    public Collection<Abonnement> trouveAbonnementsEnCoursSouscritsEntre(LocalDate début, LocalDate fin) {
-        return eventsStreams.keySet().stream()
-                .map(id -> new Abonnement(eventsStreams.get(id)))
-                .filter(abonnement -> abonnement.jourDeFin().isAfter(LocalDate.now()))
-                .filter(abonnement -> abonnement.jourDeSouscription().isAfter(début) && abonnement.jourDeSouscription().isBefore(fin))
-                .collect(Collectors.toList());
     }
 
     @Override

@@ -4,17 +4,14 @@ import sds.offre.concept_metier.Formule;
 import sds.offre.concept_metier.FormuleRepository;
 import sds.offre.concept_metier.IdFormule;
 import sds.utils.concept_metier.Event;
+import sds.utils.concept_metier.EventSourcingRepository;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class FormuleRepositoryEnMemoire implements FormuleRepository {
-
-    private HashMap<IdFormule, List<Event>> eventsStreams = new HashMap<>();
+public class FormuleRepositoryEnMemoire extends EventSourcingRepository<IdFormule> implements FormuleRepository {
 
     @Override
     public Formule get(IdFormule id) {
@@ -23,11 +20,7 @@ public class FormuleRepositoryEnMemoire implements FormuleRepository {
 
     @Override
     public List<Event> addOrReplace(Formule formule) {
-        List<Event> events = eventsStreams.getOrDefault(formule.id(), new ArrayList<>());
-        List<Event> changements = formule.changements();
-        events.addAll(changements);
-        eventsStreams.put(formule.id(), events);
-        return changements;
+        return appendStream(formule.id(), formule.changements());
     }
 
     @Override
@@ -36,4 +29,5 @@ public class FormuleRepositoryEnMemoire implements FormuleRepository {
                 .map(id -> new Formule(eventsStreams.get(id)))
                 .collect(toList());
     }
+
 }
