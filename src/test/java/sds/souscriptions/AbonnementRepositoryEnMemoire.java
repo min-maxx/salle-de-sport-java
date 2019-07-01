@@ -50,6 +50,7 @@ public class AbonnementRepositoryEnMemoire extends EventSourcingRepository<IdAbo
         return eventsStreams.keySet().stream()
                 .map(id -> new Abonnement(eventsStreams.get(id)))
                 .map(Abonnement::idFormule)
+                .filter(idFormules::contains)
                 .collect(groupingBy(identity(), counting()));
     }
 

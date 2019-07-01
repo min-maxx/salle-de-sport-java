@@ -3,20 +3,16 @@ package sds.web;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sds.offre.concept_metier.Durée;
-import sds.offre.concept_metier.FormuleCreee;
-import sds.offre.concept_metier.IdFormule;
 import sds.offre.concept_metier.Prix;
 import sds.offre.tache_metier.CreerUneFormule;
 
 import java.net.HttpURLConnection;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class GerantFacadeTest_CreationFormule {
 
-    static final FormuleCreee FORMULE = FormuleCreee.de(IdFormule.de("null"), null, null);
     private GerantFacade gerantFacade;
 
     @BeforeEach

@@ -48,10 +48,6 @@ public class Abonnement extends AggregateRoot {
         return jourDeFin;
     }
 
-    public LocalDate jourDeSouscription() {
-        return jourDeSouscription;
-    }
-
     @Override
     protected void dispatchEvent(Event event) {
         if (event instanceof AbonnementSouscrit)
