@@ -34,7 +34,7 @@ public class Formule {
         return this.id != null;
     }
 
-    public IdFormule Id() {
+    public IdFormule id() {
         return id;
     }
 

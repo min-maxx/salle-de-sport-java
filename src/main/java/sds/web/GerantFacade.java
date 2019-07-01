@@ -37,9 +37,9 @@ public class GerantFacade {
     public Collection<FormuleDto> GerantConsulteLesFormules() {
         //HERE Authent. du Gérant
         Collection<Formule> formules = consulterLesFormules.consulte();
-        List<sds.souscriptions.concept_metier.IdFormule> idFormules = formules.stream().map(formule -> enIdFormule(formule.Id())).collect(toList());
+        List<sds.souscriptions.concept_metier.IdFormule> idFormules = formules.stream().map(formule -> enIdFormule(formule.id())).collect(toList());
         Map<sds.souscriptions.concept_metier.IdFormule, Long> nombreAbonnementsParFormule = consulterAbonnementsParFormule.consulte(idFormules);
-        return formules.stream().map(formule -> enDto(formule, nombreAbonnementsParFormule.get(enIdFormule(formule.Id())))).collect(toList());
+        return formules.stream().map(formule -> enDto(formule, nombreAbonnementsParFormule.get(enIdFormule(formule.id())))).collect(toList());
     }
 
     private sds.souscriptions.concept_metier.IdFormule enIdFormule(IdFormule id) {
@@ -49,7 +49,7 @@ public class GerantFacade {
     private static FormuleDto enDto(Formule formule, Long nombreAbonnements) {
         //NOTE: obliger de créer de getter pour remplir le DTO :'(
         FormuleDto dto = new FormuleDto();
-        dto.id = formule.Id().valeur();
+        dto.id = formule.id().valeur();
         dto.durée = formule.durée().toString();
         dto.prix = formule.prixDeBase().valeur();
         dto.nombreAbonnements = nombreAbonnements;
