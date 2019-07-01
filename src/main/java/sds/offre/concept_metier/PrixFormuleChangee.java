@@ -1,8 +1,10 @@
 package sds.offre.concept_metier;
 
+import sds.utils.concept_metier.Event;
+
 import java.util.Objects;
 
-public class PrixFormuleChangee {
+public class PrixFormuleChangee implements Event {
     public static PrixFormuleChangee de(IdFormule id, Prix prix) {
         return new PrixFormuleChangee(id, prix);
     }
@@ -10,7 +12,7 @@ public class PrixFormuleChangee {
     final IdFormule id;
     final Prix prix;
 
-    PrixFormuleChangee(IdFormule id, Prix prix) {
+    private PrixFormuleChangee(IdFormule id, Prix prix) {
         this.id = id;
         this.prix = prix;
     }

@@ -68,9 +68,7 @@ class GerantFacadeTest_ConsultationFormules {
         static final Formule AUTRE_FORMULE = Formule(AUTRE_ID_FORMULE);
 
         static Formule Formule(String id) {
-            Formule formule = new Formule();
-            formule.créé(IdFormule.de(id), Prix.de(0), Durée.AU_MOIS).orElseThrow();
-            return formule;
+            return new Formule(IdFormule.de(id), Prix.de(0), Durée.AU_MOIS);
         }
 
         static FormuleDto dto(String id, int nombreAbo) {

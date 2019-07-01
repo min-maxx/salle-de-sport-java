@@ -1,37 +1,29 @@
 package sds.offre.concept_metier;
 
-import java.util.Optional;
+import sds.utils.concept_metier.AggregateRoot;
+import sds.utils.concept_metier.Event;
 
-public class Formule {
+import java.util.List;
+
+public class Formule extends AggregateRoot {
 
     private IdFormule id;
     private Durée durée;
     private Prix prix;
 
-    public Formule() {
-
+    public Formule(IdFormule id, Prix prix, Durée durée) {
+        applique(FormuleCreee.de(id, prix, durée));
     }
 
-    public Optional<FormuleCreee> créé(IdFormule id, Prix prix, Durée durée) {
-        if (estCréée()) return Optional.empty();
-
-        this.id = id;
-        this.prix = prix;
-        this.durée = durée;
-        return Optional.of(FormuleCreee.de(id, prix, durée));
-
+    public Formule(List<Event> events) {
+        super(events);
     }
 
-    public Optional<PrixFormuleChangee> changePrix(Prix nouveauPrix) {
-        if (!estCréée()) return Optional.empty();
-        if (prix.equals(nouveauPrix)) return Optional.empty();
 
-        prix = nouveauPrix;
-        return Optional.of(PrixFormuleChangee.de(id, prix));
-    }
+    public void changePrix(Prix nouveauPrix) {
+        if (this.prix.equals(nouveauPrix)) return;
 
-    private boolean estCréée() {
-        return this.id != null;
+        applique(PrixFormuleChangee.de(id, nouveauPrix));
     }
 
     public IdFormule Id() {
@@ -44,5 +36,24 @@ public class Formule {
 
     public Durée durée() {
         return durée;
+    }
+
+    @Override
+    protected void dispatchEvent(Event event) {
+        if (event instanceof FormuleCreee)
+            appliqueEvent((FormuleCreee) event);
+        else if (event instanceof PrixFormuleChangee)
+            appliqueEvent((PrixFormuleChangee) event);
+
+    }
+
+    private void appliqueEvent(FormuleCreee formuleCreee) {
+        this.id = formuleCreee.id;
+        this.prix = formuleCreee.prix;
+        this.durée = formuleCreee.durée;
+    }
+
+    private void appliqueEvent(PrixFormuleChangee event) {
+        prix = event.prix;
     }
 }

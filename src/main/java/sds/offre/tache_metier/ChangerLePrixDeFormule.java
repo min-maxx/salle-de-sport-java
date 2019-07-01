@@ -1,7 +1,9 @@
 package sds.offre.tache_metier;
 
 import sds.offre.concept_metier.*;
+import sds.utils.concept_metier.Event;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ChangerLePrixDeFormule {
@@ -14,10 +16,14 @@ public class ChangerLePrixDeFormule {
     public Optional<PrixFormuleChangee> change(IdFormule id, Prix nouveauPrix) {
         Formule formule = formuleRepository.get(id);
 
-        Optional<PrixFormuleChangee> formuleChangee = formule.changePrix(nouveauPrix);
+        formule.changePrix(nouveauPrix);
 
-        formuleRepository.addOrReplace(formule);
+        List<Event> events = formuleRepository.addOrReplace(formule);
 
-        return formuleChangee;
+        return events.size() > 0 ?
+                Optional.of((PrixFormuleChangee) events.get(0)) :
+                Optional.empty();
+
+
     }
 }

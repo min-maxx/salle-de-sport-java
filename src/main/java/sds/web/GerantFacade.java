@@ -15,7 +15,6 @@ import javax.ws.rs.POST;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static java.net.HttpURLConnection.*;
 import static java.util.stream.Collectors.toList;
@@ -63,10 +62,8 @@ public class GerantFacade {
             Durée durée = Durée.values()[indexDurée];
             try {
                 //HERE Authent. du Gérant
-                Optional<FormuleCreee> formuleCreee = creerUneFormule.crée(prix, durée);
-                return formuleCreee.isPresent() ?
-                        HTTP_OK :
-                        HTTP_INTERNAL_ERROR;
+                creerUneFormule.crée(prix, durée);
+                return HTTP_OK;
             } catch (Exception e) {
                 return HTTP_INTERNAL_ERROR;
             }
@@ -82,10 +79,8 @@ public class GerantFacade {
             Prix prix = Prix.de(montant);
             try {
                 //HERE Authent. du Gérant
-                Optional<PrixFormuleChangee> prixFormuleChangee = changerLePrixDeFormule.change(idFormule, prix);
-                return prixFormuleChangee.isPresent() ?
-                        HTTP_OK :
-                        HTTP_INTERNAL_ERROR;
+                changerLePrixDeFormule.change(idFormule, prix);
+                return HTTP_OK;
             } catch (Exception e) {
                 return HTTP_INTERNAL_ERROR;
             }

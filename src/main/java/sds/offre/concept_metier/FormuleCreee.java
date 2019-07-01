@@ -1,8 +1,10 @@
 package sds.offre.concept_metier;
 
+import sds.utils.concept_metier.Event;
+
 import java.util.Objects;
 
-public class FormuleCreee {
+public class FormuleCreee implements Event {
     final IdFormule id;
     final Prix prix;
     final Durée durée;

@@ -21,6 +21,7 @@ class CreerUneFormuleTest {
         creerUneFormule = new CreerUneFormule(new IdFormuleGenerateurDeInt(), formuleRepository);
     }
 
+
     @Test
     void doit_creer_une_formule() {
         assertThat(
@@ -33,6 +34,7 @@ class CreerUneFormuleTest {
                 formuleRepository.get(ID_GENERE)
         ).isNotNull();
     }
+
 
     static class Constant {
         static final Prix PRIX = Prix.de(10);

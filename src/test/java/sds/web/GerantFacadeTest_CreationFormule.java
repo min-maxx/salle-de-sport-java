@@ -9,7 +9,6 @@ import sds.offre.concept_metier.Prix;
 import sds.offre.tache_metier.CreerUneFormule;
 
 import java.net.HttpURLConnection;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,9 +23,6 @@ class GerantFacadeTest_CreationFormule {
     void setUp() {
         gerantFacade = new GerantFacade();
         gerantFacade.creerUneFormule = mock(CreerUneFormule.class);
-        when(gerantFacade.creerUneFormule.crée(any(Prix.class), any(Durée.class)))
-                .thenReturn(Optional.of(FORMULE));
-
     }
 
     @Test
@@ -74,22 +70,10 @@ class GerantFacadeTest_CreationFormule {
     @Test
     void doit_être_ko_quand_création_est_interrompu() {
 
-        when(gerantFacade.creerUneFormule.crée(any(Prix.class), any(Durée.class)))
-                .thenThrow(new RuntimeException());
+        doThrow(new RuntimeException())
+                .when(gerantFacade.creerUneFormule).crée(any(Prix.class), any(Durée.class));
 
         int result = gerantFacade.GerantCrééUneFormule(200, 1);
-
-        assertThat(result).isEqualTo(HttpURLConnection.HTTP_INTERNAL_ERROR);
-    }
-
-
-    @Test
-    void doit_être_ko_quand_création_échoue() {
-
-        when(gerantFacade.creerUneFormule.crée(any(Prix.class), any(Durée.class)))
-                .thenReturn(Optional.empty());
-
-        int result = gerantFacade.GerantCrééUneFormule(200, 0);
 
         assertThat(result).isEqualTo(HttpURLConnection.HTTP_INTERNAL_ERROR);
     }
