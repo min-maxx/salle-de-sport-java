@@ -5,8 +5,8 @@ import sds.notification_email.concept_metier.AdresseEmail;
 import java.time.LocalDate;
 
 public class EmailRecapitulatifEnvoyé {
-    private final AdresseEmail email;
-    private final LocalDate dateEnvoi;
+    public final AdresseEmail email;
+    public final LocalDate dateEnvoi;
 
     public static EmailRecapitulatifEnvoyé avec(AdresseEmail email, LocalDate dateEnvoi) {
         return new EmailRecapitulatifEnvoyé(email, dateEnvoi);

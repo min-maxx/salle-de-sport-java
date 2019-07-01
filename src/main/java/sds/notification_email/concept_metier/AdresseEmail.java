@@ -5,7 +5,7 @@ import java.util.Objects;
 public class AdresseEmail {
     private final String adresse;
 
-    public AdresseEmail(String adresse) {
+    private AdresseEmail(String adresse) {
         this.adresse = adresse;
     }
 

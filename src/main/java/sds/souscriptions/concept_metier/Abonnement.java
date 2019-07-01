@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 public class Abonnement {
     private IdAbonnement id;
-
-
     private IdFormule idFormule;
     private Prix prix;
     private LocalDate jourDeSouscription;

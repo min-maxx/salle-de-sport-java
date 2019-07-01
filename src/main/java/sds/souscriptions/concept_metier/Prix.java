@@ -3,6 +3,10 @@ package sds.souscriptions.concept_metier;
 import java.util.Objects;
 
 public class Prix {
+
+    public static final int NB_CHIFFRE_APRES_VIRGULE_EN_EURO = 2;
+    public static final double CENT = Math.pow(10, NB_CHIFFRE_APRES_VIRGULE_EN_EURO);
+
     public static Prix de(double valeur) {
         return new Prix(valeur);
     }
@@ -15,11 +19,11 @@ public class Prix {
 
     public Prix applique(TauxReduction taux) {
         double prixReduit = this.valeur - (this.valeur) * taux.valeur / 100;
-        return Prix.de(arrondi(prixReduit, 2));
+        return Prix.de(arrondi(prixReduit));
     }
 
-    private double arrondi(double nombre, int nbChiffreApresVirgule) {
-        return (double) ((int) (nombre * Math.pow(10, nbChiffreApresVirgule) + .5)) / Math.pow(10, nbChiffreApresVirgule);
+    private double arrondi(double nombre) {
+        return (double) ((int) (nombre * CENT + .5)) / CENT;
     }
 
     @Override

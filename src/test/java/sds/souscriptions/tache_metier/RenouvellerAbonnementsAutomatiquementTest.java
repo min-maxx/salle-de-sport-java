@@ -46,7 +46,6 @@ class RenouvellerAbonnementsAutomatiquementTest {
         static final LocalDate AOUT_2019 = LocalDate.of(2019, Month.AUGUST, 8);
         static final LocalDate SEPTEMBRE_2019 = LocalDate.of(2019, Month.SEPTEMBER, 8);
         static final LocalDate AOUT_2020 = LocalDate.of(2020, Month.AUGUST, 8);
-        static final String EMAIL = "mail@com";
 
     }
 }

@@ -54,6 +54,7 @@ public class AbonnementRepositoryEnMemoire implements AbonnementRepository {
     public Map<IdFormule, Long> compteAbonnementsParIdFormule(List<IdFormule> idFormules) {
         return abonnementMap.values().stream()
                 .map(Abonnement::idFormule)
+                .filter(idFormule -> idFormules.contains(idFormule))
                 .collect(groupingBy(identity(), counting()));
     }
 

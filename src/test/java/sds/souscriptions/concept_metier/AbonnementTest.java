@@ -81,7 +81,6 @@ class AbonnementTest {
         static final Prix PRIX = Prix.de(32);
         static final Prix PRIX_REDUIT = Prix.de(25.6);
 
-        static final String EMAIL = "any@mail.com";
         static final Prospect PROSPECT = Prospect.avec(Etudiant.NON);
 
         static FormuleChoisie Formule(Durée durée) {

@@ -17,19 +17,17 @@ import static sds.souscriptions.tache_metier.AbonnerProspectAFormuleTest.Constan
 
 class AbonnerProspectAFormuleTest {
 
-    private IdAbonnementGenerateur idAbonnementGenerateur;
-    private FormuleGateway formuleGateway;
     private AbonnementRepository abonnementRepository;
     private AbonnerProspectAFormule abonnerProspectAFormule;
-    private DateGenerateur dateGenerateur;
 
 
     @BeforeEach
     void setUp() {
+        FormuleGateway formuleGateway = new FormuleGatewayEnMemoire(list(FormuleChoisie.avec(ID_FORMULE, PRIX_DE_BASE, DURÉE)));
+        IdAbonnementGenerateur idAbonnementGenerateur = new IdAbonnementGenerateurDeInt();
+        DateGenerateur dateGenerateur = new DateGenerateurEnMemoire(LE_23_AVRIL);
+
         abonnementRepository = new AbonnementRepositoryEnMemoire();
-        formuleGateway = new FormuleGatewayEnMemoire(list(FormuleChoisie.avec(ID_FORMULE, PRIX_DE_BASE, DURÉE)));
-        idAbonnementGenerateur = new IdAbonnementGenerateurDeInt();
-        dateGenerateur = new DateGenerateurEnMemoire(LE_23_AVRIL);
         abonnerProspectAFormule = new AbonnerProspectAFormule(idAbonnementGenerateur, formuleGateway, dateGenerateur, abonnementRepository);
     }
 
@@ -54,7 +52,6 @@ class AbonnerProspectAFormuleTest {
         static final Prix PRIX_REDUIT = Prix.de(8.56);
         static final Durée DURÉE = Durée.MENSUELLE;
         static final IdAbonnement ID_GENERE = IdAbonnement.de("1");
-        static final String EMAIL = "mail@com";
 
         static final LocalDate LE_23_AVRIL = LocalDate.of(2019, Month.APRIL, 23);
         static final LocalDate LE_23_MAI = LocalDate.of(2019, Month.MAY, 23);
