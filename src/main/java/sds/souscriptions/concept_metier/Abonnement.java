@@ -31,6 +31,10 @@ public class Abonnement {
         return idFormule;
     }
 
+    public Prix prix() {
+        return prix;
+    }
+
     public Optional<AbonnementRenouvellé> renouvelle(LocalDate jourDeRenouvellement) {
         if (jourDeFin.equals(jourDeRenouvellement)) {
             return Optional.of(AbonnementRenouvellé.avec(id, jourDeFin.plusMonths(durée.nombreDeMois())));

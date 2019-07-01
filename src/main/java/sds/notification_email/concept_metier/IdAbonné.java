@@ -5,7 +5,7 @@ import java.util.Objects;
 public class IdAbonné {
     private String valeur;
 
-    public IdAbonné(String valeur) {
+    private IdAbonné(String valeur) {
         this.valeur = valeur;
     }
 

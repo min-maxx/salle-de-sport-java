@@ -17,19 +17,17 @@ import static sds.souscriptions.tache_metier.AbonnerProspectAFormuleTest.Constan
 
 class AbonnerProspectAFormuleTest {
 
-    private IdAbonnementGenerateur idAbonnementGenerateur;
-    private FormuleGateway formuleGateway;
     private AbonnementRepository abonnementRepository;
     private AbonnerProspectAFormule abonnerProspectAFormule;
-    private DateGenerateur dateGenerateur;
 
 
     @BeforeEach
     void setUp() {
+        FormuleGateway formuleGateway = new FormuleGatewayEnMemoire(list(FormuleChoisie.avec(ID_FORMULE, PRIX_DE_BASE, DURÉE)));
+        IdAbonnementGenerateur idAbonnementGenerateur = new IdAbonnementGenerateurDeInt();
+        DateGenerateur dateGenerateur = new DateGenerateurEnMemoire(LE_23_AVRIL);
+
         abonnementRepository = new AbonnementRepositoryEnMemoire();
-        formuleGateway = new FormuleGatewayEnMemoire(list(FormuleChoisie.avec(ID_FORMULE, PRIX_DE_BASE, DURÉE)));
-        idAbonnementGenerateur = new IdAbonnementGenerateurDeInt();
-        dateGenerateur = new DateGenerateurEnMemoire(LE_23_AVRIL);
         abonnerProspectAFormule = new AbonnerProspectAFormule(idAbonnementGenerateur, formuleGateway, dateGenerateur, abonnementRepository);
     }
 

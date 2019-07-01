@@ -12,12 +12,11 @@ import java.net.HttpURLConnection;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class GerantFacadeTest_CreationFormule {
 
-    static final FormuleCreee FORMULE = FormuleCreee.de(IdFormule.de("null"), null, null);
+    private static final FormuleCreee FORMULE = FormuleCreee.de(IdFormule.de("null"), null, null);
     private GerantFacade gerantFacade;
 
     @BeforeEach

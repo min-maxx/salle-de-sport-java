@@ -49,7 +49,6 @@ class FormuleChoisieTest {
         static final IdFormule ID = IdFormule.de("plop");
         static final Durée MENSUEL = Durée.MENSUELLE;
         static final Durée ANNUEL = Durée.ANNUELLE;
-        static final String EMAIL = "mail@com";
         static final Prospect PROSPECT = Prospect.avec(Etudiant.NON);
         static final Prospect PROSPECT_ETUDIANT = Prospect.avec(Etudiant.OUI);
 

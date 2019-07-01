@@ -3,9 +3,9 @@ package sds.offre.concept_metier;
 import java.util.Objects;
 
 public class FormuleCreee {
-    final IdFormule id;
-    final Prix prix;
-    final Durée durée;
+    public final IdFormule id;
+    public final Prix prix;
+    public final Durée durée;
 
     private FormuleCreee(IdFormule id, Prix prix, Durée durée) {
         this.id = id;

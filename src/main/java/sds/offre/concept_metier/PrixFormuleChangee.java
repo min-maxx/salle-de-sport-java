@@ -7,8 +7,8 @@ public class PrixFormuleChangee {
         return new PrixFormuleChangee(id, prix);
     }
 
-    final IdFormule id;
-    final Prix prix;
+    public final IdFormule id;
+    public final Prix prix;
 
     PrixFormuleChangee(IdFormule id, Prix prix) {
         this.id = id;
