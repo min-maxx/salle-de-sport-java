@@ -23,10 +23,10 @@ public class FormuleRepositoryEnMemoire implements FormuleRepository {
 
     @Override
     public List<Event> addOrReplace(Formule formule) {
-        List<Event> events = eventsStreams.getOrDefault(formule.Id(), new ArrayList<>());
+        List<Event> events = eventsStreams.getOrDefault(formule.id(), new ArrayList<>());
         List<Event> changements = formule.changements();
         events.addAll(changements);
-        eventsStreams.put(formule.Id(), events);
+        eventsStreams.put(formule.id(), events);
         return changements;
     }
 

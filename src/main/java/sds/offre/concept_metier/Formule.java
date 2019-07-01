@@ -26,7 +26,7 @@ public class Formule extends AggregateRoot {
         applique(PrixFormuleChangee.de(id, nouveauPrix));
     }
 
-    public IdFormule Id() {
+    public IdFormule id() {
         return id;
     }
 
