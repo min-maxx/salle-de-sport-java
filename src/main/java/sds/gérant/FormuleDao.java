@@ -23,4 +23,9 @@ public class FormuleDao {
         //UPDATE (incrémenter nb abo) GERANT_FORMULE WHERE 'id'
         throw new UnsupportedOperationException("Pas encore implémenté");
     }
+
+    public Collection<FormuleDto> readToutesLesFormules() {
+        //SELECT GERANT_FORMULE
+        throw new UnsupportedOperationException("Pas encore implémenté");
+    }
 }

@@ -22,7 +22,7 @@ public class ServiceDeProjectionDesDonnéesVersGérant implements ServiceDeProje
 
     @Override
     public void faitProjection(Collection<AbonnementRenouvellé> abonnementsARenouveller) {
-
+        // rien à faire
     }
 
 
