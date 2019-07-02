@@ -1,9 +1,11 @@
 package sds.batch;
 
+import sds.gérant.FormuleDao;
 import sds.notification_email.infra.AbonnéRepositoryEnPostgreSQL;
 import sds.notification_email.infra.EnvoyeurDeEmailMailChimp;
 import sds.notification_email.tache_metier.EnvoyerEmailRemerciementAutomatiquement;
 import sds.souscriptions.infra.AbonnementRepositoryEnPostgreSQL;
+import sds.souscriptions.infra.ServiceDeProjectionDesDonnéesVersGérant;
 import sds.souscriptions.tache_metier.RenouvellerAbonnementsAutomatiquement;
 
 import java.text.ParseException;
@@ -20,7 +22,7 @@ public class MinuteurFacade {
     private static final long MENSUELLEMENT = (long) (1000L * 60 * 60 * 24 * 365.25 / 12);
     Timer timer = new Timer();
     EnvoyerEmailRemerciementAutomatiquement envoyerEmailRemerciement = new EnvoyerEmailRemerciementAutomatiquement(new AbonnéRepositoryEnPostgreSQL(), new EnvoyeurDeEmailMailChimp());
-    RenouvellerAbonnementsAutomatiquement renouvellerAbonnements = new RenouvellerAbonnementsAutomatiquement(new AbonnementRepositoryEnPostgreSQL());
+    RenouvellerAbonnementsAutomatiquement renouvellerAbonnements = new RenouvellerAbonnementsAutomatiquement(new AbonnementRepositoryEnPostgreSQL(), new ServiceDeProjectionDesDonnéesVersGérant(new FormuleDao()));
 
     public static void main(String[] args) throws ParseException {
         var minuteurFacade = new MinuteurFacade();

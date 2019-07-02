@@ -7,14 +7,17 @@ import sds.souscriptions.concept_metier.*;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static sds.souscriptions.tache_metier.RenouvellerAbonnementsAutomatiquementTest.Constant.*;
 
 class RenouvellerAbonnementsAutomatiquementTest {
 
 
     private AbonnementRepository abonnementRepository = new AbonnementRepositoryEnMemoire();
+    private ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées = mock(ServiceDeProjectionDesDonnées.class);
 
     @Test
     void doit_renouveller_abonnements_quand_ils_sont_finis() {
@@ -24,13 +27,11 @@ class RenouvellerAbonnementsAutomatiquementTest {
                 Abo(IdAbonnement.de("3"), Durée.ANNUELLE, AOUT_2018),
                 Abo(IdAbonnement.de("4"), Durée.ANNUELLE, JUIN_2019)));
 
-        assertThat(
-                new RenouvellerAbonnementsAutomatiquement(abonnementRepository).renouvelle(AOUT_2019)
-        ).contains(
-                AbonnementRenouvellé.avec(IdAbonnement.de("1"), SEPTEMBRE_2019)
-        ).contains(
-                AbonnementRenouvellé.avec(IdAbonnement.de("3"), AOUT_2020)
-        ).hasSize(2);
+        new RenouvellerAbonnementsAutomatiquement(abonnementRepository, serviceDeProjectionDesDonnées).renouvelle(AOUT_2019);
+
+        verify(serviceDeProjectionDesDonnées)
+                .faitProjection(List.of(AbonnementRenouvellé.avec(IdAbonnement.de("1"), SEPTEMBRE_2019), AbonnementRenouvellé.avec(IdAbonnement.de("3"), AOUT_2020)));
+
     }
 
 

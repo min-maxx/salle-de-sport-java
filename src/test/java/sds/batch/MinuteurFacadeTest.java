@@ -24,8 +24,6 @@ class MinuteurFacadeTest {
         MinuteurFacade minuteurFacade = new MinuteurFacade();
         minuteurFacade.timer = new TestTimer();
         minuteurFacade.renouvellerAbonnements = mock(RenouvellerAbonnementsAutomatiquement.class);
-        when(minuteurFacade.renouvellerAbonnements.renouvelle(any(LocalDate.class)))
-                .thenReturn(Collections.emptyList());
 
         minuteurFacade.MinuteurRenouvelleAbonnementsAutomatiquementChaqueMois();
 

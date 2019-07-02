@@ -1,8 +1,11 @@
 package sds.souscriptions.infra;
 
 import sds.gérant.FormuleDao;
+import sds.souscriptions.tache_metier.AbonnementRenouvellé;
 import sds.souscriptions.tache_metier.AbonnementSouscrit;
 import sds.souscriptions.tache_metier.ServiceDeProjectionDesDonnées;
+
+import java.util.Collection;
 
 public class ServiceDeProjectionDesDonnéesVersGérant implements ServiceDeProjectionDesDonnées {
 
@@ -16,4 +19,11 @@ public class ServiceDeProjectionDesDonnéesVersGérant implements ServiceDeProje
     public void faitProjection(AbonnementSouscrit abonnementSouscrit) {
         formuleDao.updateNbAbonnement(abonnementSouscrit.idFormule.valeur());
     }
+
+    @Override
+    public void faitProjection(Collection<AbonnementRenouvellé> abonnementsARenouveller) {
+
+    }
+
+
 }

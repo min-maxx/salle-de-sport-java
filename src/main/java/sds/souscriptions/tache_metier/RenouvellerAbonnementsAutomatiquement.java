@@ -10,12 +10,14 @@ import java.util.Collection;
 public class RenouvellerAbonnementsAutomatiquement {
 
     private AbonnementRepository abonnementRepository;
+    private ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées;
 
-    public RenouvellerAbonnementsAutomatiquement(AbonnementRepository abonnementRepository) {
+    public RenouvellerAbonnementsAutomatiquement(AbonnementRepository abonnementRepository, ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées) {
         this.abonnementRepository = abonnementRepository;
+        this.serviceDeProjectionDesDonnées = serviceDeProjectionDesDonnées;
     }
 
-    public Collection<AbonnementRenouvellé> renouvelle(LocalDate jourDeFin) {
+    public void renouvelle(LocalDate jourDeFin) {
         Collection<Abonnement> abonnementsARenouveller = abonnementRepository.trouveAbonnementsFinissantLe(jourDeFin);
 
         Collection<AbonnementRenouvellé> abonnementRenouvelés = new ArrayList<>();
@@ -28,7 +30,6 @@ public class RenouvellerAbonnementsAutomatiquement {
         }
 
         abonnementRepository.addOrReplaceAll(abonnementsARenouveller);
-
-        return abonnementRenouvelés;
+        serviceDeProjectionDesDonnées.faitProjection(abonnementRenouvelés);
     }
 }
