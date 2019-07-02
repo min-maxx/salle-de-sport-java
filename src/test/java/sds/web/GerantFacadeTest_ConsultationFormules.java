@@ -2,6 +2,7 @@ package sds.web;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sds.gérant.FormuleDto;
 import sds.offre.concept_metier.Durée;
 import sds.offre.concept_metier.Formule;
 import sds.offre.concept_metier.IdFormule;

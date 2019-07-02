@@ -1,13 +1,13 @@
-package sds.web;
+package sds.gérant;
 
 import java.util.Objects;
 
-class FormuleDto {
+public class FormuleDto {
 
-    String id;
-    String durée;
-    long prix;
-    Long nombreAbonnements;
+    public String id;
+    public String durée;
+    public long prix;
+    public Long nombreAbonnements;
 
     @Override
     public boolean equals(Object o) {

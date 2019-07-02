@@ -22,9 +22,6 @@ class GerantFacadeTest_CreationFormule {
     void setUp() {
         gerantFacade = new GerantFacade();
         gerantFacade.creerUneFormule = mock(CreerUneFormule.class);
-        when(gerantFacade.creerUneFormule.crée(any(Prix.class), any(Durée.class)))
-                .thenReturn(FORMULE);
-
     }
 
     @Test
@@ -71,8 +68,9 @@ class GerantFacadeTest_CreationFormule {
 
     @Test
     void doit_être_ko_quand_création_est_interrompu() {
-        when(gerantFacade.creerUneFormule.crée(any(Prix.class), any(Durée.class)))
-                .thenThrow(new RuntimeException());
+        doThrow(new RuntimeException())
+                .when(gerantFacade.creerUneFormule)
+                .crée(any(Prix.class), any(Durée.class));
 
         int result = gerantFacade.GerantCrééUneFormule(200, 1);
 

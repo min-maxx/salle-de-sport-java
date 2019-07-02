@@ -1,7 +1,10 @@
 package sds.web;
 
+import sds.gérant.FormuleDao;
+import sds.gérant.FormuleDto;
 import sds.offre.concept_metier.*;
 import sds.offre.infra.FormuleRepositoryEnPostgreSQL;
+import sds.offre.infra.GérantGatewayDao;
 import sds.offre.infra.IdFormuleGenerateurDeUUID;
 import sds.offre.tache_metier.*;
 import sds.souscriptions.concept_metier.AbonnementRepository;
@@ -24,10 +27,11 @@ public class GerantFacade {
     private final FormuleRepository formuleRepository = new FormuleRepositoryEnPostgreSQL();
     private final AbonnementRepository abonnementRepository = new AbonnementRepositoryEnPostgreSQL();
     private final IdFormuleGenerateur idFormuleGenerateur = new IdFormuleGenerateurDeUUID();
+    private GérantGateway gérantGateway = new GérantGatewayDao(new FormuleDao());
 
     // dépendances directes à mock dans les tests
     ConsulterLesFormules consulterLesFormules = new ConsulterLesFormules(formuleRepository);
-    CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository);
+    CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository, gérantGateway);
     ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository);
     ConsulterAbonnementsParFormule consulterAbonnementsParFormule = new ConsulterAbonnementsParFormule(abonnementRepository);
 
@@ -61,7 +65,7 @@ public class GerantFacade {
             Durée durée = Durée.values()[indexDurée];
             try {
                 //HERE Authent. du Gérant
-                FormuleCreee formuleCreee = creerUneFormule.crée(prix, durée);
+                creerUneFormule.crée(prix, durée);
                 return HTTP_OK;
             } catch (Exception e) {
                 return HTTP_INTERNAL_ERROR;
