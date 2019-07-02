@@ -4,11 +4,12 @@ import sds.gérant.FormuleDao;
 import sds.gérant.FormuleDto;
 import sds.offre.concept_metier.*;
 import sds.offre.infra.FormuleRepositoryEnPostgreSQL;
-import sds.offre.infra.GérantGatewayDao;
 import sds.offre.infra.IdFormuleGenerateurDeUUID;
+import sds.offre.infra.ServiceDeProjectionDesDonnéesVersGérant;
 import sds.offre.tache_metier.ChangerLePrixDeFormule;
 import sds.offre.tache_metier.ConsulterLesFormules;
 import sds.offre.tache_metier.CreerUneFormule;
+import sds.offre.tache_metier.ServiceDeProjectionDesDonnées;
 import sds.souscriptions.concept_metier.AbonnementRepository;
 import sds.souscriptions.infra.AbonnementRepositoryEnPostgreSQL;
 import sds.souscriptions.tache_metier.ConsulterAbonnementsParFormule;
@@ -28,12 +29,12 @@ public class GerantFacade {
     private final FormuleRepository formuleRepository = new FormuleRepositoryEnPostgreSQL();
     private final AbonnementRepository abonnementRepository = new AbonnementRepositoryEnPostgreSQL();
     private final IdFormuleGenerateur idFormuleGenerateur = new IdFormuleGenerateurDeUUID();
-    private GérantGateway gérantGateway = new GérantGatewayDao(new FormuleDao());
+    private ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées = new ServiceDeProjectionDesDonnéesVersGérant(new FormuleDao());
 
     // dépendances directes à mock dans les tests
     ConsulterLesFormules consulterLesFormules = new ConsulterLesFormules(formuleRepository);
-    CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository, gérantGateway);
-    ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository, gérantGateway);
+    CreerUneFormule creerUneFormule = new CreerUneFormule(idFormuleGenerateur, formuleRepository, serviceDeProjectionDesDonnées);
+    ChangerLePrixDeFormule changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository, serviceDeProjectionDesDonnées);
     ConsulterAbonnementsParFormule consulterAbonnementsParFormule = new ConsulterAbonnementsParFormule(abonnementRepository);
 
     @GET

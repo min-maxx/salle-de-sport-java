@@ -4,11 +4,11 @@ import sds.offre.concept_metier.Formule;
 import sds.offre.tache_metier.ConsulterUneFormule;
 import sds.souscriptions.concept_metier.*;
 
-public class FormuleGatewayOffre implements FormuleGateway {
+public class FormuleGatewayDeOffre implements FormuleGateway {
 
     private final ConsulterUneFormule consulterUneFormule;
 
-    public FormuleGatewayOffre(ConsulterUneFormule consulterUneFormule) {
+    public FormuleGatewayDeOffre(ConsulterUneFormule consulterUneFormule) {
         this.consulterUneFormule = consulterUneFormule;
     }
 

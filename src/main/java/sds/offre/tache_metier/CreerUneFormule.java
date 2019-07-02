@@ -6,18 +6,18 @@ public class CreerUneFormule {
 
     private IdFormuleGenerateur idFormuleGenerateur;
     private FormuleRepository formuleRepository;
-    private GérantGateway gérantGateway;
+    private ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées;
 
-    public CreerUneFormule(IdFormuleGenerateur idFormuleGenerateur, FormuleRepository formuleRepository, GérantGateway gérantGateway) {
+    public CreerUneFormule(IdFormuleGenerateur idFormuleGenerateur, FormuleRepository formuleRepository, ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées) {
         this.idFormuleGenerateur = idFormuleGenerateur;
         this.formuleRepository = formuleRepository;
-        this.gérantGateway = gérantGateway;
+        this.serviceDeProjectionDesDonnées = serviceDeProjectionDesDonnées;
     }
 
     public void crée(Prix prix, Durée durée) {
         Formule formule = new Formule(idFormuleGenerateur.nouveauId(), prix, durée);
         formuleRepository.addOrReplace(formule);
         FormuleCreee formuleCreee = FormuleCreee.de(formule);
-        gérantGateway.faitProjection(formuleCreee);
+        serviceDeProjectionDesDonnées.faitProjection(formuleCreee);
     }
 }

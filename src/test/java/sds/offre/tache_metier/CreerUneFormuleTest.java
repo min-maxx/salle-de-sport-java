@@ -4,7 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sds.offre.FormuleRepositoryEnMemoire;
 import sds.offre.IdFormuleGenerateurDeInt;
-import sds.offre.concept_metier.*;
+import sds.offre.concept_metier.Durée;
+import sds.offre.concept_metier.FormuleRepository;
+import sds.offre.concept_metier.IdFormule;
+import sds.offre.concept_metier.Prix;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -16,13 +19,13 @@ class CreerUneFormuleTest {
 
     private CreerUneFormule creerUneFormule;
     private FormuleRepository formuleRepository;
-    private GérantGateway gérantGateway;
+    private ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées;
 
     @BeforeEach
     void setUp() {
         formuleRepository = new FormuleRepositoryEnMemoire();
-        gérantGateway = mock(GérantGateway.class);
-        creerUneFormule = new CreerUneFormule(new IdFormuleGenerateurDeInt(), formuleRepository, gérantGateway);
+        serviceDeProjectionDesDonnées = mock(ServiceDeProjectionDesDonnées.class);
+        creerUneFormule = new CreerUneFormule(new IdFormuleGenerateurDeInt(), formuleRepository, serviceDeProjectionDesDonnées);
     }
 
     @Test
@@ -30,7 +33,7 @@ class CreerUneFormuleTest {
         creerUneFormule.crée(PRIX, DURÉE);
 
         assertThat(formuleRepository.get(ID_GENERE)).isNotNull();
-        verify(gérantGateway).faitProjection(FormuleCreee.de(ID_GENERE, PRIX, DURÉE));
+        verify(serviceDeProjectionDesDonnées).faitProjection(FormuleCreee.de(ID_GENERE, PRIX, DURÉE));
     }
 
     static class Constant {

@@ -11,16 +11,20 @@ public class AbonnerProspectAFormule {
     private DateGenerateur dateGenerateur;
     private FormuleGateway formuleGateway;
     private AbonnementRepository abonnementRepository;
+    private ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées;
+    private ServiceDeNotification serviceDeNotification;
 
-    public AbonnerProspectAFormule(IdAbonnementGenerateur idAbonnementGenerateur, FormuleGateway formuleGateway, DateGenerateur dateGenerateur, AbonnementRepository abonnementRepository) {
+    public AbonnerProspectAFormule(IdAbonnementGenerateur idAbonnementGenerateur, FormuleGateway formuleGateway, DateGenerateur dateGenerateur, AbonnementRepository abonnementRepository, ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées, ServiceDeNotification serviceDeNotification) {
         this.idAbonnementGenerateur = idAbonnementGenerateur;
         this.formuleGateway = formuleGateway;
         this.dateGenerateur = dateGenerateur;
         this.abonnementRepository = abonnementRepository;
+        this.serviceDeProjectionDesDonnées = serviceDeProjectionDesDonnées;
+        this.serviceDeNotification = serviceDeNotification;
     }
 
 
-    public AbonnementSouscrit abonne(Prospect prospect, IdFormule idFormule) {
+    public void abonne(Prospect prospect, IdFormule idFormule) {
         FormuleChoisie formuleChoisie = formuleGateway.trouveFormuleChoisie(idFormule);
         LocalDate jourDeSouscription = dateGenerateur.aujourdhui();
 
@@ -29,6 +33,7 @@ public class AbonnerProspectAFormule {
 
         abonnementRepository.addOrReplace(abonnement);
 
-        return abonnementSouscrit;
+        serviceDeProjectionDesDonnées.faitProjection(abonnementSouscrit);
+        serviceDeNotification.envoieRecapitulatif(prospect, abonnementSouscrit);
     }
 }

@@ -12,7 +12,7 @@ import sds.offre.tache_metier.PrixFormuleChangee;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-class GérantGatewayDaoTest {
+class ServiceDeProjectionDesDonnéesDaoTest {
 
     private final FormuleDao formuleDao = mock(FormuleDao.class);
 
@@ -20,7 +20,7 @@ class GérantGatewayDaoTest {
     void doit_créer_projection_quand_FormuleCréée() {
         FormuleCreee formuleCréée = FormuleCréée("1", 10, Durée.AU_MOIS);
 
-        new GérantGatewayDao(formuleDao).faitProjection(formuleCréée);
+        new ServiceDeProjectionDesDonnéesVersGérant(formuleDao).faitProjection(formuleCréée);
 
         verify(formuleDao).create(FormuleDto("1", 10, "AU_MOIS"));
     }
@@ -29,7 +29,7 @@ class GérantGatewayDaoTest {
     void doit_màj_projection_quand_PrixFormuleChangée() {
         PrixFormuleChangee prixFormuleChangee = PrixFormuleChangée("abc", 20);
 
-        new GérantGatewayDao(formuleDao).faitProjection(prixFormuleChangee);
+        new ServiceDeProjectionDesDonnéesVersGérant(formuleDao).faitProjection(prixFormuleChangee);
 
         verify(formuleDao).update("abc", 20);
     }

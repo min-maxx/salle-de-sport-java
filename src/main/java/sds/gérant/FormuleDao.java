@@ -18,4 +18,9 @@ public class FormuleDao {
         //UPDATE GERANT_FORMULE WHERE 'id'
         throw new UnsupportedOperationException("Pas encore implémenté");
     }
+
+    public void updateNbAbonnement(String id) {
+        //UPDATE (incrémenter nb abo) GERANT_FORMULE WHERE 'id'
+        throw new UnsupportedOperationException("Pas encore implémenté");
+    }
 }

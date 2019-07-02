@@ -13,12 +13,16 @@ import java.time.Month;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.util.Lists.list;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static sds.souscriptions.tache_metier.AbonnerProspectAFormuleTest.Constant.*;
 
 class AbonnerProspectAFormuleTest {
 
     private AbonnementRepository abonnementRepository;
     private AbonnerProspectAFormule abonnerProspectAFormule;
+    private ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées;
+    private ServiceDeNotification serviceDeNotification;
 
 
     @BeforeEach
@@ -26,27 +30,33 @@ class AbonnerProspectAFormuleTest {
         FormuleGateway formuleGateway = new FormuleGatewayEnMemoire(list(FormuleChoisie.avec(ID_FORMULE, PRIX_DE_BASE, DURÉE)));
         IdAbonnementGenerateur idAbonnementGenerateur = new IdAbonnementGenerateurDeInt();
         DateGenerateur dateGenerateur = new DateGenerateurEnMemoire(LE_23_AVRIL);
+        serviceDeProjectionDesDonnées = mock(ServiceDeProjectionDesDonnées.class);
+        serviceDeNotification = mock(ServiceDeNotification.class);
 
         abonnementRepository = new AbonnementRepositoryEnMemoire();
-        abonnerProspectAFormule = new AbonnerProspectAFormule(idAbonnementGenerateur, formuleGateway, dateGenerateur, abonnementRepository);
+        abonnerProspectAFormule = new AbonnerProspectAFormule(idAbonnementGenerateur, formuleGateway, dateGenerateur, abonnementRepository, serviceDeProjectionDesDonnées, serviceDeNotification);
+
+        abonnerProspectAFormule.abonne(PROSPECT, ID_FORMULE);
     }
 
     @Test
-    void doit_abonner_prospect_à_une_formule() {
+    void doit_stocker_abonnement() {
+        assertThat(abonnementRepository.get(ID_GENERE)).isNotNull();
+    }
 
-        assertThat(
-                abonnerProspectAFormule.abonne(Prospect.avec(Etudiant.OUI), ID_FORMULE)
-        ).isEqualTo(
-                AbonnementSouscrit.avec(ID_GENERE, ID_FORMULE, PRIX_REDUIT, LE_23_AVRIL, LE_23_MAI)
-        );
+    @Test
+    void doit_aussi_envoyer_email_de_récap() {
+        verify(serviceDeNotification).envoieRecapitulatif(PROSPECT, AbonnementSouscrit.avec(ID_GENERE, ID_FORMULE, PRIX_REDUIT, LE_23_AVRIL, LE_23_MAI));
+    }
 
-        assertThat(
-                abonnementRepository.get(ID_GENERE)
-        ).isNotNull();
+    @Test
+    void doit__aussi_màj_information_vue_gérant() {
+        verify(serviceDeProjectionDesDonnées).faitProjection(AbonnementSouscrit.avec(ID_GENERE, ID_FORMULE, PRIX_REDUIT, LE_23_AVRIL, LE_23_MAI));
     }
 
 
     static class Constant {
+        static final Prospect PROSPECT = Prospect.avec("@mail.com", Etudiant.OUI);
         static final IdFormule ID_FORMULE = IdFormule.de("idf");
         static final Prix PRIX_DE_BASE = Prix.de(12.23);
         static final Prix PRIX_REDUIT = Prix.de(8.56);

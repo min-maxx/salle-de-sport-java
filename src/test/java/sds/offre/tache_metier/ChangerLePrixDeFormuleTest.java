@@ -13,13 +13,13 @@ class ChangerLePrixDeFormuleTest {
 
     private ChangerLePrixDeFormule changerLePrixDeFormule;
     private FormuleRepository formuleRepository;
-    private GérantGateway gérantGateway;
+    private ServiceDeProjectionDesDonnées serviceDeProjectionDesDonnées;
 
     @BeforeEach
     void setUp() {
         formuleRepository = new FormuleRepositoryEnMemoire();
-        gérantGateway = mock(GérantGateway.class);
-        changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository, gérantGateway);
+        serviceDeProjectionDesDonnées = mock(ServiceDeProjectionDesDonnées.class);
+        changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository, serviceDeProjectionDesDonnées);
     }
 
     @Test
@@ -30,7 +30,7 @@ class ChangerLePrixDeFormuleTest {
         changerLePrixDeFormule.change(ID, NOUVEAU_PRIX);
 
         assertThat(formuleRepository.get(ID).prixDeBase()).isEqualTo(NOUVEAU_PRIX);
-        verify(gérantGateway).faitProjection(PrixFormuleChangee.de(ID, NOUVEAU_PRIX));
+        verify(serviceDeProjectionDesDonnées).faitProjection(PrixFormuleChangee.de(ID, NOUVEAU_PRIX));
     }
 
     @Test
@@ -40,7 +40,7 @@ class ChangerLePrixDeFormuleTest {
 
         changerLePrixDeFormule.change(ID, ANCIEN_PRIX);
 
-        verify(gérantGateway, never()).faitProjection(any(PrixFormuleChangee.class));
+        verify(serviceDeProjectionDesDonnées, never()).faitProjection(any(PrixFormuleChangee.class));
     }
 
     static class Constant {

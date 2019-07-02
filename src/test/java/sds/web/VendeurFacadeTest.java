@@ -2,21 +2,13 @@ package sds.web;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sds.notification_email.concept_metier.AbonnementDetail;
-import sds.notification_email.concept_metier.Abonné;
-import sds.notification_email.concept_metier.AdresseEmail;
-import sds.notification_email.concept_metier.IdAbonné;
-import sds.notification_email.tache_metier.EmailRecapitulatifEnvoyé;
 import sds.notification_email.tache_metier.EnvoyerEmailRecapitulatif;
 import sds.souscriptions.concept_metier.Etudiant;
-import sds.souscriptions.concept_metier.IdAbonnement;
 import sds.souscriptions.concept_metier.IdFormule;
 import sds.souscriptions.concept_metier.Prospect;
-import sds.souscriptions.tache_metier.AbonnementSouscrit;
 import sds.souscriptions.tache_metier.AbonnerProspectAFormule;
 
 import java.net.HttpURLConnection;
-import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -37,20 +29,13 @@ class VendeurFacadeTest {
         vendeurFacade = new VendeurFacade();
         vendeurFacade.abonnerProspectAFormule = mock(AbonnerProspectAFormule.class);
         vendeurFacade.envoyerEmailRecapitulatif = mock(EnvoyerEmailRecapitulatif.class);
-
-        when(vendeurFacade.abonnerProspectAFormule.abonne(any(Prospect.class), any(IdFormule.class)))
-                .thenReturn(AbonnementSouscrit.avec(IdAbonnement.de(ID_ABO), null, null, SOUSCRIPTION, FIN_ABO));
-
-        when(vendeurFacade.envoyerEmailRecapitulatif.envoie(any(Abonné.class), any(AbonnementDetail.class)))
-                .thenReturn(EmailRecapitulatifEnvoyé.avec(null, null));
     }
 
     @Test
     void doit_être_ok_quand_abonnement_est_souscrit_et_email_de_recap_envoyé() {
         int result = vendeurFacade.VendeurAbonneProspectAFormule(INDEX_NON_ETUDIANT, ID_FORMULE, EMAIL);
 
-        verify(vendeurFacade.abonnerProspectAFormule).abonne(Prospect.avec(Etudiant.NON), IdFormule.de(ID_FORMULE));
-        verify(vendeurFacade.envoyerEmailRecapitulatif).envoie(Abonné.avec(IdAbonné.de(ID_ABO), AdresseEmail.de(EMAIL), SOUSCRIPTION), AbonnementDetail.avec(FIN_ABO));
+        verify(vendeurFacade.abonnerProspectAFormule).abonne(Prospect.avec(EMAIL, Etudiant.NON), IdFormule.de(ID_FORMULE));
 
         assertThat(result).isEqualTo(HttpURLConnection.HTTP_OK);
     }
@@ -59,8 +44,7 @@ class VendeurFacadeTest {
     void doit_être_ok_quand_abonnement_etudiant_est_souscrit_et_email_de_recap_envoyé() {
         int result = vendeurFacade.VendeurAbonneProspectAFormule(INDEX_ETUDIANT, ID_FORMULE, EMAIL);
 
-        verify(vendeurFacade.abonnerProspectAFormule).abonne(Prospect.avec(Etudiant.OUI), IdFormule.de(ID_FORMULE));
-        verify(vendeurFacade.envoyerEmailRecapitulatif).envoie(Abonné.avec(IdAbonné.de(ID_ABO), AdresseEmail.de(EMAIL), SOUSCRIPTION), AbonnementDetail.avec(FIN_ABO));
+        verify(vendeurFacade.abonnerProspectAFormule).abonne(Prospect.avec(EMAIL, Etudiant.OUI), IdFormule.de(ID_FORMULE));
 
         assertThat(result).isEqualTo(HttpURLConnection.HTTP_OK);
     }
@@ -70,7 +54,6 @@ class VendeurFacadeTest {
         int result = vendeurFacade.VendeurAbonneProspectAFormule(-1, ID_FORMULE, EMAIL);
 
         verify(vendeurFacade.abonnerProspectAFormule, never()).abonne(any(Prospect.class), any(IdFormule.class));
-        verify(vendeurFacade.envoyerEmailRecapitulatif, never()).envoie(any(Abonné.class), any(AbonnementDetail.class));
 
         assertThat(result).isEqualTo(HttpURLConnection.HTTP_BAD_REQUEST);
     }
@@ -80,7 +63,6 @@ class VendeurFacadeTest {
         int result = vendeurFacade.VendeurAbonneProspectAFormule(2, ID_FORMULE, EMAIL);
 
         verify(vendeurFacade.abonnerProspectAFormule, never()).abonne(any(Prospect.class), any(IdFormule.class));
-        verify(vendeurFacade.envoyerEmailRecapitulatif, never()).envoie(any(Abonné.class), any(AbonnementDetail.class));
 
         assertThat(result).isEqualTo(HttpURLConnection.HTTP_BAD_REQUEST);
     }
@@ -89,33 +71,18 @@ class VendeurFacadeTest {
     @Test
     void doit_être_ko_quand_souscription_echoue() {
 
-        when(vendeurFacade.abonnerProspectAFormule.abonne(any(Prospect.class), any(IdFormule.class)))
-                .thenThrow(new RuntimeException()); // surcharge le setup
+        doThrow(new RuntimeException())
+                .when(vendeurFacade.abonnerProspectAFormule)
+                .abonne(any(Prospect.class), any(IdFormule.class));
 
-        int result = vendeurFacade.VendeurAbonneProspectAFormule(-INDEX_ETUDIANT, ID_FORMULE, EMAIL);
+        int result = vendeurFacade.VendeurAbonneProspectAFormule(INDEX_ETUDIANT, ID_FORMULE, EMAIL);
 
-        verify(vendeurFacade.envoyerEmailRecapitulatif, never()).envoie(any(Abonné.class), any(AbonnementDetail.class));
-        assertThat(result).isEqualTo(HttpURLConnection.HTTP_BAD_REQUEST);
+        assertThat(result).isEqualTo(HttpURLConnection.HTTP_INTERNAL_ERROR);
 
-    }
-
-    @Test
-    void doit_être_ok_quand_abonnement_souscrit_même_si_email_de_recap_pas_envoyé() {
-        when(vendeurFacade.envoyerEmailRecapitulatif.envoie(any(Abonné.class), any(AbonnementDetail.class)))
-                .thenThrow(new RuntimeException()); // surcharge le setup
-
-
-        int result = vendeurFacade.VendeurAbonneProspectAFormule(0, ID_FORMULE, EMAIL);
-
-        verify(vendeurFacade.abonnerProspectAFormule).abonne(Prospect.avec(Etudiant.NON), IdFormule.de(ID_FORMULE));
-        assertThat(result).isEqualTo(HttpURLConnection.HTTP_OK);
     }
 
     static class Constant {
-        static final String ID_ABO = "yxz";
-        static final LocalDate FIN_ABO = LocalDate.now();
         static final int INDEX_ETUDIANT = 1;
-        static final LocalDate SOUSCRIPTION = LocalDate.now().minusYears(INDEX_ETUDIANT);
         static final String EMAIL = "mail@com";
         static final String ID_FORMULE = "abc";
         static final int INDEX_NON_ETUDIANT = 0;
