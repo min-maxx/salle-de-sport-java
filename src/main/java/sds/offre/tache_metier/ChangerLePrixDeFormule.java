@@ -1,9 +1,6 @@
 package sds.offre.tache_metier;
 
-import sds.offre.concept_metier.Formule;
-import sds.offre.concept_metier.FormuleRepository;
-import sds.offre.concept_metier.IdFormule;
-import sds.offre.concept_metier.Prix;
+import sds.offre.concept_metier.*;
 
 public class ChangerLePrixDeFormule {
     private FormuleRepository formuleRepository;

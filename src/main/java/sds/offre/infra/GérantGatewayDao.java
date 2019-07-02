@@ -2,8 +2,8 @@ package sds.offre.infra;
 
 import sds.gérant.FormuleDao;
 import sds.gérant.FormuleDto;
+import sds.offre.concept_metier.GérantGateway;
 import sds.offre.tache_metier.FormuleCreee;
-import sds.offre.tache_metier.GérantGateway;
 import sds.offre.tache_metier.PrixFormuleChangee;
 
 public class GérantGatewayDao implements GérantGateway {

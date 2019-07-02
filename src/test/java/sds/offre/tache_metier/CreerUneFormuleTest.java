@@ -4,10 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sds.offre.FormuleRepositoryEnMemoire;
 import sds.offre.IdFormuleGenerateurDeInt;
-import sds.offre.concept_metier.Durée;
-import sds.offre.concept_metier.FormuleRepository;
-import sds.offre.concept_metier.IdFormule;
-import sds.offre.concept_metier.Prix;
+import sds.offre.concept_metier.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

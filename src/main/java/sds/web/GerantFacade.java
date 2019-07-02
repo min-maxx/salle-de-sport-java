@@ -9,7 +9,6 @@ import sds.offre.infra.IdFormuleGenerateurDeUUID;
 import sds.offre.tache_metier.ChangerLePrixDeFormule;
 import sds.offre.tache_metier.ConsulterLesFormules;
 import sds.offre.tache_metier.CreerUneFormule;
-import sds.offre.tache_metier.GérantGateway;
 import sds.souscriptions.concept_metier.AbonnementRepository;
 import sds.souscriptions.infra.AbonnementRepositoryEnPostgreSQL;
 import sds.souscriptions.tache_metier.ConsulterAbonnementsParFormule;
