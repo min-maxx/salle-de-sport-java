@@ -4,6 +4,7 @@ import sds.gérant.FormuleDao;
 import sds.gérant.FormuleDto;
 import sds.offre.tache_metier.FormuleCreee;
 import sds.offre.tache_metier.GérantGateway;
+import sds.offre.tache_metier.PrixFormuleChangee;
 
 public class GérantGatewayDao implements GérantGateway {
 
@@ -21,5 +22,10 @@ public class GérantGatewayDao implements GérantGateway {
         formule.prix = formuleCreee.prix.valeur();
         formuleDao.create(formule);
 
+    }
+
+    @Override
+    public void faitProjection(PrixFormuleChangee prixFormuleChangee) {
+        formuleDao.update(prixFormuleChangee.id.valeur(), prixFormuleChangee.prix.valeur());
     }
 }

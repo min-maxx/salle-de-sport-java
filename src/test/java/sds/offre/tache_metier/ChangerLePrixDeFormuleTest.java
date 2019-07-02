@@ -6,17 +6,20 @@ import sds.offre.FormuleRepositoryEnMemoire;
 import sds.offre.concept_metier.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 import static sds.offre.tache_metier.ChangerLePrixDeFormuleTest.Constant.*;
 
 class ChangerLePrixDeFormuleTest {
 
     private ChangerLePrixDeFormule changerLePrixDeFormule;
     private FormuleRepository formuleRepository;
+    private GérantGateway gérantGateway;
 
     @BeforeEach
     void setUp() {
         formuleRepository = new FormuleRepositoryEnMemoire();
-        changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository);
+        gérantGateway = mock(GérantGateway.class);
+        changerLePrixDeFormule = new ChangerLePrixDeFormule(formuleRepository, gérantGateway);
     }
 
     @Test
@@ -24,16 +27,10 @@ class ChangerLePrixDeFormuleTest {
         Formule formule = new Formule(ID, ANCIEN_PRIX, Durée.AU_MOIS);
         formuleRepository.addOrReplace(formule);
 
-        assertThat(
-                changerLePrixDeFormule.change(ID, NOUVEAU_PRIX)
-        ).hasValue(
-                PrixFormuleChangee.de(ID, NOUVEAU_PRIX)
-        );
+        changerLePrixDeFormule.change(ID, NOUVEAU_PRIX);
 
-        assertThat(
-                formuleRepository.get(ID).prixDeBase()
-        ).isEqualTo(
-                NOUVEAU_PRIX);
+        assertThat(formuleRepository.get(ID).prixDeBase()).isEqualTo(NOUVEAU_PRIX);
+        verify(gérantGateway).faitProjection(PrixFormuleChangee.de(ID, NOUVEAU_PRIX));
     }
 
     @Test
@@ -41,9 +38,9 @@ class ChangerLePrixDeFormuleTest {
         Formule formule = new Formule(ID, ANCIEN_PRIX, Durée.AU_MOIS);
         formuleRepository.addOrReplace(formule);
 
-        assertThat(
-                changerLePrixDeFormule.change(ID, ANCIEN_PRIX)
-        ).isEmpty();
+        changerLePrixDeFormule.change(ID, ANCIEN_PRIX);
+
+        verify(gérantGateway, never()).faitProjection(any(PrixFormuleChangee.class));
     }
 
     static class Constant {

@@ -13,4 +13,9 @@ public class FormuleDao {
         //INSERT INTO GERANT_FORMULE
         throw new UnsupportedOperationException("Pas encore implémenté");
     }
+
+    public void update(String id, long prix) {
+        //UPDATE GERANT_FORMULE WHERE 'id'
+        throw new UnsupportedOperationException("Pas encore implémenté");
+    }
 }

@@ -5,22 +5,24 @@ import sds.offre.concept_metier.FormuleRepository;
 import sds.offre.concept_metier.IdFormule;
 import sds.offre.concept_metier.Prix;
 
-import java.util.Optional;
-
 public class ChangerLePrixDeFormule {
     private FormuleRepository formuleRepository;
+    private GérantGateway gérantGateway;
 
-    public ChangerLePrixDeFormule(FormuleRepository formuleRepository) {
+    public ChangerLePrixDeFormule(FormuleRepository formuleRepository, GérantGateway gérantGateway) {
         this.formuleRepository = formuleRepository;
+        this.gérantGateway = gérantGateway;
     }
 
-    public Optional<PrixFormuleChangee> change(IdFormule id, Prix nouveauPrix) {
+    public void change(IdFormule id, Prix nouveauPrix) {
         Formule formule = formuleRepository.get(id);
-        if (formule.lePrixEstIdentique(nouveauPrix)) return Optional.empty();
+        if (formule.lePrixEstIdentique(nouveauPrix)) return;
 
         formule.changePrix(nouveauPrix);
         formuleRepository.addOrReplace(formule);
-        return Optional.of(PrixFormuleChangee.de(formule));
+
+        PrixFormuleChangee prixFormuleChangee = PrixFormuleChangee.de(formule);
+        gérantGateway.faitProjection(prixFormuleChangee);
     }
 
 }
