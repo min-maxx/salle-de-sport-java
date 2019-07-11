@@ -13,6 +13,6 @@ public class ConsulterLesFormules {
     }
 
     public Collection<Formule> consulte() {
-        return formuleRepository.getToutesLesFormules();
+        return formuleRepository.toutesLesFormules();
     }
 }
