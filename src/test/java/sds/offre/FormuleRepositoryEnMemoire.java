@@ -18,7 +18,7 @@ public class FormuleRepositoryEnMemoire implements FormuleRepository {
 
     @Override
     public void addOrReplace(Formule formule) {
-        formuleMap.put(formule.id(), formule);
+        formuleMap.put(formule.getId(), formule);
     }
 
     @Override

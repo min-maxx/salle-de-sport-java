@@ -21,7 +21,7 @@ class ChangerLePrixDeFormuleTest {
 
     @Test
     void doit_changer_prix_formule_existante() {
-        Formule formule = new Formule(ID, ANCIEN_PRIX, Durée.AU_MOIS);
+        Formule formule = new Formule(ID, Durée.AU_MOIS, ANCIEN_PRIX);
         formuleRepository.addOrReplace(formule);
 
         assertThat(
@@ -31,14 +31,14 @@ class ChangerLePrixDeFormuleTest {
         );
 
         assertThat(
-                formuleRepository.get(ID).prixDeBase()
+                formuleRepository.get(ID).getPrixDeBase()
         ).isEqualTo(
                 NOUVEAU_PRIX);
     }
 
     @Test
     void doit_pas_changer_prix_formule_quand_prix_est_identique() {
-        Formule formule = new Formule(ID, ANCIEN_PRIX, Durée.AU_MOIS);
+        Formule formule = new Formule(ID, Durée.AU_MOIS, ANCIEN_PRIX);
         formuleRepository.addOrReplace(formule);
 
         assertThat(

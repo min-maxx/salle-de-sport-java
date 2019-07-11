@@ -23,7 +23,7 @@ public class FormuleCreee {
     }
 
     public static FormuleCreee de(Formule formule) {
-        return new FormuleCreee(formule.id(), formule.prixDeBase(), formule.durée());
+        return new FormuleCreee(formule.getId(), formule.getPrixDeBase(), formule.getDurée());
     }
 
     @Override

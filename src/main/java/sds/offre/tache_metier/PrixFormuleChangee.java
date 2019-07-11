@@ -12,7 +12,7 @@ public class PrixFormuleChangee {
     }
 
     public static PrixFormuleChangee de(Formule formule) {
-        return new PrixFormuleChangee(formule.id(), formule.prixDeBase());
+        return new PrixFormuleChangee(formule.getId(), formule.getPrixDeBase());
     }
 
     final IdFormule id;

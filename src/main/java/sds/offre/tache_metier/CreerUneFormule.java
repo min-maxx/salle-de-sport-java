@@ -13,7 +13,7 @@ public class CreerUneFormule {
     }
 
     public FormuleCreee crée(Prix prix, Durée durée) {
-        Formule formule = new Formule(idFormuleGenerateur.nouveauId(), prix, durée);
+        Formule formule = new Formule(idFormuleGenerateur.nouveauId(), durée, prix);
         formuleRepository.addOrReplace(formule);
         return FormuleCreee.de(formule);
     }
