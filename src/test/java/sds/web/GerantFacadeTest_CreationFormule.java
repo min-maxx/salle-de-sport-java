@@ -31,7 +31,7 @@ class GerantFacadeTest_CreationFormule {
     void doit_être_ok_quand_une_formule_mensuelle_est_créée() {
         int result = gerantFacade.GerantCrééUneFormule(200, 0);
 
-        verify(gerantFacade.creerUneFormule).crée(Prix.de(200), Durée.AU_MOIS);
+        verify(gerantFacade.creerUneFormule).crée(new Prix(200), Durée.AU_MOIS);
         assertThat(result).isEqualTo(HttpURLConnection.HTTP_OK);
     }
 
@@ -39,7 +39,7 @@ class GerantFacadeTest_CreationFormule {
     void doit_être_ok_quand_une_formule_annuelle_est_créée() {
         int result = gerantFacade.GerantCrééUneFormule(200, 1);
 
-        verify(gerantFacade.creerUneFormule).crée(Prix.de(200), Durée.A_L_ANNEE);
+        verify(gerantFacade.creerUneFormule).crée(new Prix(200), Durée.A_L_ANNEE);
         assertThat(result).isEqualTo(HttpURLConnection.HTTP_OK);
     }
 

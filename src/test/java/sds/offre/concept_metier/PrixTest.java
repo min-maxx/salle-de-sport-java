@@ -11,9 +11,9 @@ class PrixTest {
     void doit_créer_un_prix_positif() {
 
         assertThat(
-                Prix.de(34)
+                new Prix(34)
         ).isEqualTo(
-                Prix.de(34));
+                new Prix(34));
 
     }
 
@@ -21,7 +21,7 @@ class PrixTest {
     void doit_pas_créer_un_prix_négatif() {
 
         assertThatThrownBy(() ->
-                Prix.de(-34)
+                new Prix(-34)
         ).isInstanceOf(
                 IllegalArgumentException.class
         );

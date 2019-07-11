@@ -48,7 +48,7 @@ public class GerantFacade {
         FormuleDto dto = new FormuleDto();
         dto.id = formule.getId().valeur();
         dto.durée = formule.getDurée().toString();
-        dto.prix = formule.getPrixDeBase().valeur();
+        dto.prix = formule.getPrixDeBase().getValeur();
         dto.nombreAbonnements = nombreAbonnements;
         return dto;
     }
@@ -56,7 +56,7 @@ public class GerantFacade {
     @POST
     public int GerantCrééUneFormule(int montant, int indexDurée) {
         try {
-            Prix prix = Prix.de(montant);
+            Prix prix = new Prix(montant);
             Durée durée = Durée.values()[indexDurée];
             try {
                 //HERE Authent. du Gérant
@@ -74,7 +74,7 @@ public class GerantFacade {
     public int GerantChangeLePrixDuneFormule(String id, int montant) {
         try {
             IdFormule idFormule = IdFormule.de(id);
-            Prix prix = Prix.de(montant);
+            Prix prix = new Prix(montant);
             try {
                 //HERE Authent. du Gérant
                 Optional<PrixFormuleChangee> prixFormuleChangee = changerLePrixDeFormule.change(idFormule, prix);

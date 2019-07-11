@@ -15,7 +15,7 @@ public class FormuleGatewayOffre implements FormuleGateway {
     @Override
     public FormuleChoisie trouveFormuleChoisie(IdFormule idFormule) {
         Formule formule = consulterUneFormule.consulte(sds.offre.concept_metier.IdFormule.de(idFormule.valeur()));
-        return FormuleChoisie.avec(IdFormule.de(formule.getId().valeur()), Prix.de(formule.getPrixDeBase().valeur()), toDurée(formule.getDurée()));
+        return FormuleChoisie.avec(IdFormule.de(formule.getId().valeur()), Prix.de(formule.getPrixDeBase().getValeur()), toDurée(formule.getDurée()));
     }
 
     private Durée toDurée(sds.offre.concept_metier.Durée durée) {

@@ -48,8 +48,8 @@ class ChangerLePrixDeFormuleTest {
 
     static class Constant {
         static final IdFormule ID = IdFormule.de("22");
-        static final Prix NOUVEAU_PRIX = Prix.de(22);
-        static final Prix ANCIEN_PRIX = Prix.de(32);
+        static final Prix NOUVEAU_PRIX = new Prix(22);
+        static final Prix ANCIEN_PRIX = new Prix(32);
 
     }
 }

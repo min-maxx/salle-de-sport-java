@@ -31,7 +31,7 @@ class GerantFacadeTest_ChangementPrixFormule {
     void doit_être_ok_quand_une_formule_est_changée() {
         int result = gerantFacade.GerantChangeLePrixDuneFormule("32", 150);
 
-        verify(gerantFacade.changerLePrixDeFormule).change(IdFormule.de("32"), Prix.de(150));
+        verify(gerantFacade.changerLePrixDeFormule).change(IdFormule.de("32"), new Prix(150));
         assertThat(result).isEqualTo(HttpURLConnection.HTTP_OK);
     }
 
