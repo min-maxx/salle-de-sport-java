@@ -47,7 +47,7 @@ class ChangerLePrixDeFormuleTest {
     }
 
     static class Constant {
-        static final IdFormule ID = IdFormule.de("22");
+        static final IdFormule ID = new IdFormule("22");
         static final Prix NOUVEAU_PRIX = new Prix(22);
         static final Prix ANCIEN_PRIX = new Prix(32);
 

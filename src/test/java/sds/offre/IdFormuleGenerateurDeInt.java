@@ -7,6 +7,6 @@ public class IdFormuleGenerateurDeInt implements IdFormuleGenerateur {
     private int valeur = 0;
 
     public IdFormule nouveauId() {
-        return IdFormule.de(String.valueOf(++valeur));
+        return new IdFormule(String.valueOf(++valeur));
     }
 }

@@ -24,7 +24,7 @@ internal class FormuleTest {
     }
 
     companion object Constant {
-        val ID = IdFormule.de("22")
+        val ID = IdFormule("22")
         val NOUVEAU_PRIX = Prix(22)
         val PRIX = Prix(32)
         val UN_MOIS = Durée.AU_MOIS

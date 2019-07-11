@@ -41,12 +41,12 @@ public class GerantFacade {
     }
 
     private sds.souscriptions.concept_metier.IdFormule enIdFormule(IdFormule id) {
-        return sds.souscriptions.concept_metier.IdFormule.de(id.valeur());
+        return sds.souscriptions.concept_metier.IdFormule.de(id.getValeur());
     }
 
     private static FormuleDto enDto(Formule formule, Long nombreAbonnements) {
         FormuleDto dto = new FormuleDto();
-        dto.id = formule.getId().valeur();
+        dto.id = formule.getId().getValeur();
         dto.durée = formule.getDurée().toString();
         dto.prix = formule.getPrixDeBase().getValeur();
         dto.nombreAbonnements = nombreAbonnements;
@@ -73,7 +73,7 @@ public class GerantFacade {
     @POST
     public int GerantChangeLePrixDuneFormule(String id, int montant) {
         try {
-            IdFormule idFormule = IdFormule.de(id);
+            IdFormule idFormule = new IdFormule(id);
             Prix prix = new Prix(montant);
             try {
                 //HERE Authent. du Gérant

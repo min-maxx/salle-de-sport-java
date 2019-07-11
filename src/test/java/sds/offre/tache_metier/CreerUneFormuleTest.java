@@ -40,7 +40,7 @@ class CreerUneFormuleTest {
     static class Constant {
         static final Prix PRIX = new Prix(10);
         static final Durée DURÉE = Durée.AU_MOIS;
-        static final IdFormule ID_GENERE = IdFormule.de("1");
+        static final IdFormule ID_GENERE = new IdFormule("1");
 
     }
 }
