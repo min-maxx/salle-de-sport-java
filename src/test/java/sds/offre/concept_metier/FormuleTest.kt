@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 internal class FormuleTest {
 
     @Test
-    fun peut_etre_creer() {
+    fun `peut être créer`() {
         val formule = Formule(ID, UN_MOIS, PRIX)
 
         assertThat(formule.id).isEqualTo(ID)
@@ -15,7 +15,7 @@ internal class FormuleTest {
     }
 
     @Test
-    fun peut_changer_prix_s_il_est_different() {
+    fun `peut changer de prix s'il est différent`() {
         val formule = Formule(ID, UN_MOIS, PRIX)
 
         formule.changePrix(NOUVEAU_PRIX)
