@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 
 class GerantFacadeTest_ChangementPrixFormule {
 
-    private static final PrixFormuleChangee FORMULE = PrixFormuleChangee.de(new IdFormule("any"), null);
+    private static final PrixFormuleChangee FORMULE = new PrixFormuleChangee(new IdFormule("any"), new Prix(0));
     private GerantFacade gerantFacade;
 
     @BeforeEach
