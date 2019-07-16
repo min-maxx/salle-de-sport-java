@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 
 class GerantFacadeTest_CreationFormule {
 
-    private static final FormuleCreee FORMULE = FormuleCreee.de(new IdFormule("null"), null, null);
+    private static final FormuleCreee FORMULE = new FormuleCreee(new IdFormule("null"), new Prix(0), Durée.AU_MOIS);
     private GerantFacade gerantFacade;
 
     @BeforeEach
