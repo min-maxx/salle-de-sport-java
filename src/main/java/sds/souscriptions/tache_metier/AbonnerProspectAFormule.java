@@ -11,12 +11,14 @@ public class AbonnerProspectAFormule {
     private DateGenerateur dateGenerateur;
     private FormuleGateway formuleGateway;
     private AbonnementRepository abonnementRepository;
+    private ServiceDeNotification serviceDeNotification;
 
-    public AbonnerProspectAFormule(IdAbonnementGenerateur idAbonnementGenerateur, FormuleGateway formuleGateway, DateGenerateur dateGenerateur, AbonnementRepository abonnementRepository) {
+    public AbonnerProspectAFormule(IdAbonnementGenerateur idAbonnementGenerateur, FormuleGateway formuleGateway, DateGenerateur dateGenerateur, AbonnementRepository abonnementRepository, ServiceDeNotification serviceDeNotification) {
         this.idAbonnementGenerateur = idAbonnementGenerateur;
         this.formuleGateway = formuleGateway;
         this.dateGenerateur = dateGenerateur;
         this.abonnementRepository = abonnementRepository;
+        this.serviceDeNotification = serviceDeNotification;
     }
 
 
@@ -29,6 +31,7 @@ public class AbonnerProspectAFormule {
 
         abonnementRepository.addOrReplace(abonnement);
 
+        serviceDeNotification.envoieRecapitulatif(prospect, abonnementSouscrit);
         return abonnementSouscrit;
     }
 }
