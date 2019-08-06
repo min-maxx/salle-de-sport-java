@@ -35,7 +35,9 @@ class RenouvellerAbonnementsAutomatiquementTest {
 
 
     private Abonnement Abo(IdAbonnement id, Durée durée, LocalDate jourDeSouscription) {
-        return new Abonnement(id, FormuleChoisie.avec(IdFormule.de("2"), Prix.de(10.99), durée), Prospect.avec(Etudiant.NON), jourDeSouscription);
+        FormuleChoisie formuleChoisie = FormuleChoisie.avec(IdFormule.de("2"), Prix.de(10.99), durée);
+        Prospect prospect = Prospect.avec("any", Etudiant.NON);
+        return new Abonnement(id, formuleChoisie, prospect, jourDeSouscription);
     }
 
     static class Constant {

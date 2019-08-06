@@ -1,5 +1,7 @@
 package sds.offre.concept_metier;
 
+import sds.utils.concept_metier.Event;
+
 import java.util.Objects;
 
 public class FormuleCreee implements Event {

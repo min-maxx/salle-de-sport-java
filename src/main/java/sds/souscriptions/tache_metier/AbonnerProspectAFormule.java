@@ -32,8 +32,8 @@ public class AbonnerProspectAFormule {
 
         List<Event> events = abonnementRepository.addOrReplace(abonnement);
 
-        AbonnementSouscrit abonnementSouscrit =(AbonnementSouscrit) events.get(0);
-                serviceDeNotification.envoieRecapitulatif(prospect, abonnementSouscrit);
+        AbonnementSouscrit abonnementSouscrit = (AbonnementSouscrit) events.get(0);
+        serviceDeNotification.envoieRecapitulatif(prospect, abonnementSouscrit);
 
         return abonnementSouscrit;
     }

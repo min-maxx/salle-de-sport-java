@@ -3,6 +3,8 @@ package sds.web;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sds.offre.concept_metier.Durée;
+import sds.offre.concept_metier.FormuleCreee;
+import sds.offre.concept_metier.IdFormule;
 import sds.offre.concept_metier.Prix;
 import sds.offre.tache_metier.CreerUneFormule;
 

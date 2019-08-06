@@ -13,6 +13,7 @@ import java.time.Month;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.util.Lists.list;
+import static org.mockito.Mockito.*;
 import static sds.souscriptions.tache_metier.AbonnerProspectAFormuleTest.Constant.*;
 
 class AbonnerProspectAFormuleTest {
@@ -62,7 +63,7 @@ class AbonnerProspectAFormuleTest {
         static final LocalDate LE_23_AVRIL = LocalDate.of(2019, Month.APRIL, 23);
         static final LocalDate LE_23_MAI = LocalDate.of(2019, Month.MAY, 23);
 
-        static final AbonnementSouscrit ABONNEMENT_SOUSCRIT = AbonnementSouscrit.avec(ID_GENERE, ID_FORMULE, PRIX_REDUIT, LE_23_AVRIL, LE_23_MAI);
+        static final AbonnementSouscrit ABONNEMENT_SOUSCRIT = AbonnementSouscrit.avec(ID_GENERE, ID_FORMULE, PRIX_REDUIT, DURÉE, LE_23_AVRIL, LE_23_MAI);
     }
 
 }
