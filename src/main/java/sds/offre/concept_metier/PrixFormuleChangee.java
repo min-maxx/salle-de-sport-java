@@ -9,8 +9,8 @@ public class PrixFormuleChangee implements Event {
         return new PrixFormuleChangee(id, prix);
     }
 
-    final IdFormule id;
-    final Prix prix;
+    public final IdFormule id;
+    public final Prix prix;
 
     private PrixFormuleChangee(IdFormule id, Prix prix) {
         this.id = id;

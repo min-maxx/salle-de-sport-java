@@ -13,6 +13,7 @@ import static org.mockito.Mockito.*;
 
 class GerantFacadeTest_CreationFormule {
 
+    private static final FormuleCreee FORMULE = FormuleCreee.de(IdFormule.de("null"), null, null);
     private GerantFacade gerantFacade;
 
     @BeforeEach
