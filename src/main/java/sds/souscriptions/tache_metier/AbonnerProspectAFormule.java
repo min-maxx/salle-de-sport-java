@@ -25,13 +25,16 @@ public class AbonnerProspectAFormule {
     public AbonnementSouscrit abonne(Prospect prospect, IdFormule idFormule) {
         FormuleChoisie formuleChoisie = formuleGateway.trouveFormuleChoisie(idFormule);
         LocalDate jourDeSouscription = dateGenerateur.aujourdhui();
+        IdAbonnement idAbonnement = idAbonnementGenerateur.nouveauId();
 
-        Abonnement abonnement = new Abonnement(idAbonnementGenerateur.nouveauId(), formuleChoisie, prospect, jourDeSouscription);
-        AbonnementSouscrit abonnementSouscrit = AbonnementSouscrit.de(abonnement);
-
-        abonnementRepository.addOrReplace(abonnement);
-
-        serviceDeNotification.envoieRecapitulatif(prospect, abonnementSouscrit);
-        return abonnementSouscrit;
+        try {
+            Abonnement abonnement = new Abonnement(idAbonnement, formuleChoisie, prospect, jourDeSouscription);
+            AbonnementSouscrit abonnementSouscrit = AbonnementSouscrit.de(abonnement);
+            abonnementRepository.addOrReplace(abonnement);
+            serviceDeNotification.envoieRecapitulatif(prospect, abonnementSouscrit);
+            return abonnementSouscrit;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }

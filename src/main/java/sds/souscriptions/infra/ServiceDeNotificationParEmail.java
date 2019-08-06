@@ -5,9 +5,9 @@ import sds.notification_email.concept_metier.Abonné;
 import sds.notification_email.concept_metier.AdresseEmail;
 import sds.notification_email.concept_metier.IdAbonné;
 import sds.notification_email.tache_metier.EnvoyerEmailRecapitulatif;
-import sds.souscriptions.concept_metier.AbonnementSouscrit;
 import sds.souscriptions.concept_metier.Prospect;
 import sds.souscriptions.concept_metier.ServiceDeNotification;
+import sds.souscriptions.tache_metier.AbonnementSouscrit;
 
 public class ServiceDeNotificationParEmail implements ServiceDeNotification {
 

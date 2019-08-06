@@ -13,8 +13,7 @@ import java.time.Month;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.util.Lists.list;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static sds.souscriptions.tache_metier.AbonnerProspectAFormuleTest.Constant.*;
 
 class AbonnerProspectAFormuleTest {
@@ -33,19 +32,24 @@ class AbonnerProspectAFormuleTest {
 
         abonnementRepository = new AbonnementRepositoryEnMemoire();
         abonnerProspectAFormule = new AbonnerProspectAFormule(idAbonnementGenerateur, formuleGateway, dateGenerateur, abonnementRepository, serviceDeNotification);
-
-        abonnerProspectAFormule.abonne(PROSPECT, ID_FORMULE);
     }
 
     @Test
     void doit_stocker_abonnement() {
+        AbonnementSouscrit réponse = abonnerProspectAFormule.abonne(PROSPECT, ID_FORMULE);
+
+        assertThat(réponse).isEqualTo(ABONNEMENT_SOUSCRIT);
         assertThat(abonnementRepository.get(ID_GENERE)).isNotNull();
+        verify(serviceDeNotification).envoieRecapitulatif(PROSPECT, ABONNEMENT_SOUSCRIT);
     }
 
-
     @Test
-    void doit_aussi_envoyer_email_de_récap() {
-        verify(serviceDeNotification).envoieRecapitulatif(PROSPECT, AbonnementSouscrit.avec(ID_GENERE, ID_FORMULE, PRIX_REDUIT, LE_23_AVRIL, LE_23_MAI));
+    void doit_pas_envoyer_email_de_récap_quand_abonnement_échoue() {
+        try {
+            abonnerProspectAFormule.abonne(PROSPECT, IdFormule.de("pas existant"));
+        } catch (Exception e) {
+            verify(serviceDeNotification, never()).envoieRecapitulatif(any(Prospect.class), any(AbonnementSouscrit.class));
+        }
     }
 
     static class Constant {
@@ -59,7 +63,7 @@ class AbonnerProspectAFormuleTest {
         static final LocalDate LE_23_AVRIL = LocalDate.of(2019, Month.APRIL, 23);
         static final LocalDate LE_23_MAI = LocalDate.of(2019, Month.MAY, 23);
 
-
+        static final AbonnementSouscrit ABONNEMENT_SOUSCRIT = AbonnementSouscrit.avec(ID_GENERE, ID_FORMULE, PRIX_REDUIT, LE_23_AVRIL, LE_23_MAI);
     }
 
 }

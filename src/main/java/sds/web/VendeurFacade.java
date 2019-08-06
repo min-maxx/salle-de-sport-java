@@ -8,8 +8,8 @@ import sds.offre.tache_metier.ConsulterUneFormule;
 import sds.souscriptions.concept_metier.Etudiant;
 import sds.souscriptions.concept_metier.IdFormule;
 import sds.souscriptions.concept_metier.Prospect;
-import sds.souscriptions.tache_metier.AbonnementSouscrit;
 import sds.souscriptions.infra.*;
+import sds.souscriptions.tache_metier.AbonnementSouscrit;
 import sds.souscriptions.tache_metier.AbonnerProspectAFormule;
 
 import javax.ws.rs.POST;
@@ -24,9 +24,9 @@ public class VendeurFacade {
 
     // dépendances indirectes
     private final FormuleGatewayOffre offreFormules = new FormuleGatewayOffre(new ConsulterUneFormule(new FormuleRepositoryEnPostgreSQL()));
+    private EnvoyerEmailRecapitulatif envoyerEmailRecapitulatif = new EnvoyerEmailRecapitulatif(new AbonnéRepositoryEnPostgreSQL(), new EnvoyeurDeEmailMailChimp());
 
     // dépendances directes à mock dans les tests
-    EnvoyerEmailRecapitulatif envoyerEmailRecapitulatif = new EnvoyerEmailRecapitulatif(new AbonnéRepositoryEnPostgreSQL(), new EnvoyeurDeEmailMailChimp());
     AbonnerProspectAFormule abonnerProspectAFormule = new AbonnerProspectAFormule(new IdAbonnementGenerateurDeUUID(), offreFormules, new DateGenerateurEnJava(), new AbonnementRepositoryEnPostgreSQL(), new ServiceDeNotificationParEmail(envoyerEmailRecapitulatif));
 
     @POST
