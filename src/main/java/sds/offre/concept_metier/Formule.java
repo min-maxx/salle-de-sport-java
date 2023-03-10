@@ -19,7 +19,6 @@ public class Formule extends AggregateRoot {
         super(events);
     }
 
-
     public void changePrix(Prix nouveauPrix) {
         if (this.prix.equals(nouveauPrix)) return;
 
